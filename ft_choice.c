@@ -6,7 +6,7 @@
 /*   By: mbosson <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/10/18 13:52:12 by mbosson      #+#   ##    ##    #+#       */
-/*   Updated: 2019/10/22 16:31:34 by mbosson     ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/10/22 17:40:29 by mbosson     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -37,20 +37,7 @@ int		ft_strchr(char *str, char c)
 	return (1);
 }
 
-int		test_stdin(char *str, int choice_max)
-{
-	if (str[1] != 0)
-		return (0);
-	while ((str[0] - 48) != choice_max)
-	{
-		if (choice_max == 0)
-			return (0);
-		choice_max--;
-	}
-	return (1);
-}
-
-int		choice(char *str, int size, int choice_max, char *print)
+int		choice(int size, int choice_max, char *print)
 {
 	int test_bug;
 
@@ -59,13 +46,13 @@ int		choice(char *str, int size, int choice_max, char *print)
 	{
 		if (print != 0)
 			printf("%s : ", print);
-		if (fgets(str, size, stdin) != NULL)
+		if (fgets(chemin, size, stdin) != NULL)
 		{
 			
-			ft_strchr(str, '\n');
-			if (str[0] != 0 && (str[0] - 48) <= choice_max && str[0] >= '1' && str[1] == 0)
+			ft_strchr(chemin, '\n');
+			if (chemin[0] != 0 && (chemin[0] - 48) <= choice_max && chemin[0] >= '1' && chemin[1] == 0)
 				test_bug = 1;
-			else if (str[0] != 0 && str[1] != 0)
+			else if (chemin[0] != 0 && chemin[1] != 0)
 				empty_buffer();
 		}
 	}
