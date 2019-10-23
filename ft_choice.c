@@ -6,7 +6,7 @@
 /*   By: mbosson <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/10/18 13:52:12 by mbosson      #+#   ##    ##    #+#       */
-/*   Updated: 2019/10/22 17:40:29 by mbosson     ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/10/23 17:44:36 by mbosson     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -37,7 +37,7 @@ int		ft_strchr(char *str, char c)
 	return (1);
 }
 
-int		choice(int size, int choice_max, char *print)
+int		choice(char *print, int choice_max)
 {
 	int test_bug;
 
@@ -46,7 +46,7 @@ int		choice(int size, int choice_max, char *print)
 	{
 		if (print != 0)
 			printf("%s : ", print);
-		if (fgets(chemin, size, stdin) != NULL)
+		if (fgets(chemin, 3, stdin) != NULL)
 		{
 			
 			ft_strchr(chemin, '\n');

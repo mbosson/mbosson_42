@@ -6,7 +6,7 @@
 /*   By: mbosson <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/10/18 13:06:50 by mbosson      #+#   ##    ##    #+#       */
-/*   Updated: 2019/10/22 17:42:43 by mbosson     ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/10/23 17:45:48 by mbosson     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -17,6 +17,6 @@
 char	chemin[3];
 int		life;
 
-int		choice(int size, int choice_max, char *print);
+int		choice(char *print, int choice_max);
 void	print(char *str);
 int		reveil(void);
