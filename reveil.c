@@ -47,6 +47,7 @@ int reveil(void)
 		print("En ouvrant les yeux, vous voyez le gobelin en l'air, imobile.");
 		print("Vous contemplez son visage dégoutant. Il arbore de nombreuses entailles infecté sur sa peau.");
 		print("Vous ressentez l’instabilité du temps comme une infime vibration dans votre âme. Il semblerait que vous y soyez connecté.");
+		print("Plus vous bougez et plus le temps semble reprendre son cours");
 		choice("Que voulez vous faire ? (1) Esquiver sur le coté / (2) Empaller le gobelin avec votre dague.", 2);
 		if (chemin[0] == '1')
 			print("Vous faites une roulade sur le côté, tandis que le gobelin s’éclate la face contre le sol.");
