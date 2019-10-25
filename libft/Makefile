@@ -6,7 +6,7 @@
 #    By: mbosson <marvin@le-101.fr>                 +:+   +:    +:    +:+      #
 #                                                  #+#   #+    #+    #+#       #
 #    Created: 2019/10/16 11:04:58 by mbosson      #+#   ##    ##    #+#        #
-#    Updated: 2019/10/21 11:21:19 by mbosson     ###    #+. /#+    ###.fr      #
+#    Updated: 2019/10/25 16:11:44 by mbosson     ###    #+. /#+    ###.fr      #
 #                                                          /                   #
 #                                                         /                    #
 # **************************************************************************** #
@@ -30,9 +30,11 @@ SRCS		=	ft_atoi.c				\
 				ft_memcpy.c				\
 				ft_memmove.c			\
 				ft_memset.c				\
+				ft_putstr.c				\
 				ft_putchar_fd.c			\
 				ft_putendl_fd.c			\
 				ft_putnbr_fd.c			\
+				ft_putnbr.c				\
 				ft_putstr_fd.c			\
 				ft_split.c				\
 				ft_strchr.c				\

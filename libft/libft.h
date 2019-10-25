@@ -6,7 +6,7 @@
 /*   By: mbosson <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/10/15 17:42:09 by mbosson      #+#   ##    ##    #+#       */
-/*   Updated: 2019/10/16 17:16:02 by mbosson     ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/10/25 16:11:28 by mbosson     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -38,8 +38,10 @@ char				*ft_strjoin(const char *s1, const char *s2);
 char				*ft_strdup(const char *s1);
 char				*ft_strchr(const char *s, int c);
 char				**ft_split(const char *s, char c);
+void				ft_putstr(char *str);
 void				ft_putstr_fd(char *s, int fd);
 void				ft_putnbr_fd(int n, int fd);
+void				ft_putnbr(int n);
 void				ft_putendl_fd(char *s, int fd);
 void				ft_putchar_fd(char c, int fd);
 void				*ft_memset(void *s, int c, size_t n);
