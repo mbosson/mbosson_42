@@ -62,7 +62,7 @@ OBJS 		=	$(SRCS:.c=.o)
 
 OBJS_BONUS	=	$(BONUS:.c=.o)
 
-CC			=	gcc
+CC			=	@ gcc
 
 CFLAGS 	   +=	-Wall -Werror -Wextra
 
@@ -74,20 +74,22 @@ LIB			= 	libft.h
 all			:	$(NAME)
 
 $(NAME)		:	$(OBJS)
-				 ar rc $(NAME) $(OBJS) $(LIB)
-				 ranlib $(NAME)
+				 @ ar rc $(NAME) $(OBJS) $(LIB)
+				 @ ranlib $(NAME)
+				 @ rm -f $(OBJS) $(OBJS_BONUS)
 
 clean		:
 				 rm -f $(OBJS) $(OBJS_BONUS)
 
 fclean		:	clean 
-				rm -f $(NAME)
+				@ rm -f $(NAME)
 
 re			:	fclean all
 
 bonus		:	$(OBJS)	$(OBJS_BONUS)
-				ar rc $(NAME) $(OBJS_BONUS) $(LIB)
-				ranlib $(NAME)
+				@ ar rc $(NAME) $(OBJS_BONUS) $(LIB)
+				@ ranlib $(NAME)
+				@ rm -f $(OBJS) $(OBJS_BONUS)
 
 norm		:	
 				norminette *.c libft.h
