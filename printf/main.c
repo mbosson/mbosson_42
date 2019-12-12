@@ -1,4 +1,6 @@
-nt main(void)
+#include "ft_printf.h"
+
+int main(void)
 {
 	char *s = "Bonjour, je suis malade";
 	unsigned int u = 453123156;

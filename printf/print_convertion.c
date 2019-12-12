@@ -28,13 +28,13 @@ int	convertion_str(t_list *convert, char *str, char flag)
 		j = convert->width - n;
 	if (convert->spe == 'd' && convert->flag == '0' && str[0] == '-')
 	{
-		write(1, "-", 1);
+		convert->result += write(1, "-", 1);
 		i++;
 	}
 	while (j-- != 0)
-		write(1, &flag, 1);
+		convert->result += write(1, &flag, 1);
 	while (i < n)
-		write(1, &str[i++], 1);
+		convert->result += write(1, &str[i++], 1);
 	return (0);
 }
 
@@ -52,9 +52,9 @@ int	convertion_flag_str(t_list *convert, char *str, char flag)
 	if (convert->width > n)
 		j = convert->width - n;
 	while (i < n)
-		write(1, &str[i++], 1);
+		convert->result += write(1, &str[i++], 1);
 	while (j-- != 0)
-		write(1, &flag, 1);
+		convert->result += write(1, &flag, 1);
 	return (1);
 }
 

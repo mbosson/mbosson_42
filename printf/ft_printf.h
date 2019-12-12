@@ -24,6 +24,7 @@ typedef	struct	s_list
 	int			width;
 	int			prec;
 	char		spe;
+	int		result;
 }				t_list;
 
 int				ft_atoi(const char *str, int *i);

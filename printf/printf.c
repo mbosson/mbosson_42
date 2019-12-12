@@ -71,6 +71,7 @@ int	ft_printf(const	char *str, ...)
 	if ((convert = malloc(sizeof(t_list) * 1)) == 0)
 		return (-1);
 	i = 0;
+	convert->result = 0;
 	va_start(argument, str);
 	while (str[i] != 0)
 	{
@@ -80,9 +81,11 @@ int	ft_printf(const	char *str, ...)
 				free(convert);
 				return (-1);
 			}
-		write(1, &str[i], 1);
+		convert->result += write(1, &str[i], 1);
 		i++;
 	}
+	i = convert->result;
+	printf("\nresult : %d\n", i);
 	free(convert);
 	return (i);
 }
