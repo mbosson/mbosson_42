@@ -1,4 +1,5 @@
 #include "ft_printf.h"
+#include <limits.h>
 
 int main(void)
 {
@@ -12,10 +13,10 @@ int main(void)
 	printf("\n---------------Decimaux---------------\n\n");
 
 	printf("true : ");
-	printf("#%.2d#", d);
+	printf("#%d#", (int)NULL);
 	printf("\n");
 	ft_printf("ft_  : ");
-	ft_printf("#%.2d#", d);
+	ft_printf("#%d#", (int)NULL);
 	printf("\n\n");
 
 	printf("true : ");
@@ -70,10 +71,10 @@ int main(void)
 	printf("\n---------------Unsigned---------------\n\n");
 
 	printf("true : ");
-	printf("#%u#", u);
+	printf("#%u#", (unsigned int)NULL);
 	printf("\n");
 	ft_printf("ft_  : ");
-	ft_printf("#%u#", u);
+	ft_printf("#%u#", (unsigned int)NULL);
 	printf("\n\n");
 
 	printf("true : ");
@@ -121,10 +122,17 @@ int main(void)
 	printf("\n---------------Hexadecimal---------------\n\n");
 
 	printf("true : ");
-	printf("#%x#", x);
+	printf("#%x#", (unsigned int)NULL);
 	printf("\n");
 	ft_printf("ft_  : ");
-	ft_printf("#%x#", x);
+	ft_printf("#%x#", (unsigned int)NULL);
+	printf("\n\n");
+
+	printf("true : ");
+	printf("#%.x#", (unsigned int)NULL);
+	printf("\n");
+	ft_printf("ft_  : ");
+	ft_printf("#%.x#", (unsigned int)NULL);
 	printf("\n\n");
 
 	printf("true : ");
@@ -193,10 +201,10 @@ int main(void)
 	printf("\n---------------HeXacimal---------------\n\n");
 
 	printf("true : ");
-	printf("#%X#", X);
+	printf("#%X#", (unsigned int)NULL);
 	printf("\n");
 	ft_printf("ft_  : ");
-	ft_printf("#%X#", X);
+	ft_printf("#%X#", (unsigned int)NULL);
 	printf("\n\n");
 
 	printf("true : ");
@@ -265,10 +273,10 @@ int main(void)
 	printf("\n---------------Pointeur---------------\n\n");
 
 	printf("true : ");
-	printf("#%p#", &u);
+	printf("#%p#", NULL);
 	printf("\n");
 	ft_printf("ft_  : ");
-	ft_printf("#%p#", &u);
+	ft_printf("#%p#", NULL);
 	printf("\n\n");
 
 	printf("true : ");
@@ -295,10 +303,17 @@ int main(void)
 	printf("\n---------------Characteres---------------\n\n");
 
 	printf("true : ");
-	printf("#%c#", c);
+	printf("#%c#", 0);
 	printf("\n");
 	ft_printf("ft_  : ");
-	ft_printf("#%c#", c);
+	ft_printf("#%c#", 0);
+	printf("\n\n");
+
+	printf("true : ");
+	printf("#%c#", (int)NULL);
+	printf("\n");
+	ft_printf("ft_  : ");
+	ft_printf("#%c#", (int)NULL);
 	printf("\n\n");
 
 	printf("true : ");
@@ -325,10 +340,17 @@ int main(void)
 	printf("---------------Chaine--De--Caractere---------------\n\n");
 
 	printf("true : ");
-	printf("#%s#", s);
+	printf("#%20s#", NULL);
 	printf("\n");
 	ft_printf("ft_  : ");                     //1
-	ft_printf("#%s#", s);
+	ft_printf("#%20s#", NULL);
+	printf("\n\n");
+
+	printf("true : ");
+	printf("#%.s#", s);
+	printf("\n");
+	ft_printf("ft_  : ");                     //1
+	ft_printf("#%.s#", s);
 	printf("\n\n");
 
 	printf("true : ");
@@ -386,6 +408,7 @@ int main(void)
 	ft_printf("ft_  : ");
 	ft_printf("#%-.30s#", s);
 	printf("\n\n");
+
 
 	return (0);
 }

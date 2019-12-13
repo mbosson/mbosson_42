@@ -6,7 +6,7 @@
 /*   By: mbosson <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/12/04 08:08:43 by mbosson      #+#   ##    ##    #+#       */
-/*   Updated: 2019/12/12 17:43:55 by mbosson     ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/12/13 12:05:59 by mbosson     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -26,6 +26,8 @@ int		ft_strlen(const char *str)
 	int i;
 
 	i = 0;
+	if (str == NULL)
+		return (-1);
 	while (str[i])
 		i++;
 	return (i);

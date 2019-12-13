@@ -6,12 +6,40 @@
 /*   By: mbosson <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/12/03 13:53:42 by mbosson      #+#   ##    ##    #+#       */
-/*   Updated: 2019/12/12 17:55:04 by mbosson     ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/12/13 14:34:36 by mbosson     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
+
+int	str_null(t_list *convert, char *str)
+{
+	if (convert->spe == 's')
+		convert_redirection(convert, "(null)");
+	return (0);
+}
+
+int	redirection_second(va_list argument, t_list *convert)
+{
+	if (convert->spe == 'x')
+	{
+		return (convert_redirection(convert, ft_itoa_base(va_arg(argument,
+							unsigned int), "0123456789abcdef")));
+	}
+	if (convert->spe == 'X')
+	{
+		return (convert_redirection(convert, ft_itoa_base(va_arg(argument,
+							unsigned int), "0123456789ABCDEF")));
+	}
+	if (convert->spe == '%')
+	{
+		convert->spe = 'c';
+		convert_redirection(convert, "%");
+		return (1);
+	}
+	return (-1);
+}
 
 int	redirection(va_list argument, t_list *convert)
 {
@@ -20,18 +48,18 @@ int	redirection(va_list argument, t_list *convert)
 	if (convert->spe == 's')
 		return (convert_redirection(convert, va_arg(argument, char *)));
 	if (convert->spe == 'p')
-		return (convert_redirection(convert, ft_itoa_base(va_arg(argument, unsigned long int), "0123456789abcdef")));
+	{
+		return (convert_redirection(convert, ft_itoa_base(va_arg(argument,
+			unsigned long int), "0123456789abcdef")));
+	}
 	if (convert->spe == 'd' || convert->spe == 'i')
 		return (convert_redirection(convert, ft_itoa(va_arg(argument, int))));
 	if (convert->spe == 'u')
-		return (convert_redirection(convert, ft_itoa(va_arg(argument, unsigned int))));
-	if (convert->spe == 'x')
-		return (convert_redirection(convert, ft_itoa_base(va_arg(argument, unsigned int), "0123456789abcdef")));
-	if (convert->spe == 'X')
-		return (convert_redirection(convert, ft_itoa_base(va_arg(argument, unsigned int), "0123456789abcdef")));
-	if (convert->spe == '%')
-		return (write(1, "%", 1));
-	return (1);
+	{
+		return (convert_redirection(convert, ft_itoa(va_arg(argument,
+							unsigned int))));
+	}
+	return (redirection_second(argument, convert));
 }
 
 int	parsing(t_list *convert, va_list argument, const char *str, int *i)
@@ -48,14 +76,22 @@ int	parsing(t_list *convert, va_list argument, const char *str, int *i)
 	else if (str[*i] == '*')
 	{
 		convert->width = va_arg(argument, int);
+		if (convert->width < 0)
+		{
+			convert->flag = '-';
+			convert->width *= -1;
+		}
 		*i += 1;
 	}
 	if (str[*i] == '.')
-		convert->prec = ft_atoi(str, i);
-	else if (str[*i] == '*')
 	{
+		if (str[*i + 1] == '*')
+		{
 		convert->prec = va_arg(argument, int);
-		*i += 1;
+		*i += 2;
+		}
+		else
+			convert->prec = ft_atoi(str, i);
 	}
 	convert->spe = str[*i];
 	*i += 1;
@@ -76,16 +112,14 @@ int	ft_printf(const	char *str, ...)
 	while (str[i] != 0)
 	{
 		if (str[i] == '%')
-			if ((parsing(convert, argument, str, &i) == -1))
-			{
-				free(convert);
+			if ((parsing(convert, argument, str, &i)) == -1)
 				return (-1);
-			}
 		convert->result += write(1, &str[i], 1);
 		i++;
 	}
 	i = convert->result;
-	printf("\nresult : %d\n", i);
+	if (str[0] != 'f')
+		printf("\nret : %d\n", i);
 	free(convert);
 	return (i);
 }

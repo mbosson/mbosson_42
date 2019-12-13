@@ -6,7 +6,7 @@
 /*   By: mbosson <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/12/10 10:29:15 by mbosson      #+#   ##    ##    #+#       */
-/*   Updated: 2019/12/12 17:47:16 by mbosson     ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/12/13 13:05:25 by mbosson     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -21,6 +21,8 @@ int		convertion_char(va_list argument, t_list *convert)
 	c = va_arg(argument, int);
 	str[0] = c;
 	str[1] = 0;
+	if (c == 0)
+		convert->width -= 1;
 	convert_redirection(convert, str);
 	return (1);
 }
