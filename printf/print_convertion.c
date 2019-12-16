@@ -6,7 +6,7 @@
 /*   By: mbosson <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/12/06 13:31:50 by mbosson      #+#   ##    ##    #+#       */
-/*   Updated: 2019/12/16 10:53:03 by mbosson     ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/12/16 17:02:38 by mbosson     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -67,26 +67,28 @@ int	convert_redirect_decimal(t_list *convert, char *str, char flag, int len)
 	if (convert->prec == 0 && str[0] == 0)
 	{
 		convertion_str(convert, str, flag);
-		free(str);
-		return (0);
+		return (ret_free(str, 1));
 	}
 	if (convert->prec < 0 && convert->flag == '0')
 		flag = '0';
 	if (convert->prec < len)
 		convert->prec = len;
 	else if (convert->prec >= len)
-		str = create_str_spe_superior(convert, str);
+	{
+		if ((str = create_str_spe_superior(convert, str)) == NULL)
+			return (ret_free(str, -1));
+	}
 	else if (flag == '0' && convert->width > len)
 	{
 		convert->prec = convert->width - 1;
-		str = create_str_spe_superior(convert, str);
+		if ((str = create_str_spe_superior(convert, str)) == NULL)
+			return (ret_free(str, -1));
 	}
 	if (convert->flag == '-')
 		convertion_flag_str(convert, str, flag);
 	else
 		convertion_str(convert, str, flag);
-	free(str);
-	return (0);
+	return (ret_free(str, 1));
 }
 
 int	convert_redirection(t_list *convert, char *str)
@@ -95,7 +97,8 @@ int	convert_redirection(t_list *convert, char *str)
 
 	flag = ' ';
 	if (convert->spe == 'p')
-		str = put_ox(str);
+		if ((str = put_ox(str)) == NULL)
+			return (-1);
 	if (convert->spe != 'c' && convert->spe != 's')
 		return (convert_redirect_decimal(convert, str, flag, ft_strlen(str)));
 	if (convert->prec < 0)

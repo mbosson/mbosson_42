@@ -6,7 +6,7 @@
 /*   By: mbosson <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/12/03 13:53:42 by mbosson      #+#   ##    ##    #+#       */
-/*   Updated: 2019/12/16 10:25:36 by mbosson     ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/12/16 17:19:17 by mbosson     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -25,18 +25,12 @@ int	redirection_second(va_list argument, t_list *convert)
 		return (convert_redirection(convert, ft_itoa_base(va_arg(argument,
 							unsigned int), "0123456789ABCDEF", convert)));
 	}
-	if (convert->spe == '%')
-	{
-		convert->spe = 'c';
-		convert_redirection(convert, "%");
-		return (1);
-	}
 	return (-1);
 }
 
 int	redirection(va_list argument, t_list *convert)
 {
-	if (convert->spe == 'c')
+	if (convert->spe == 'c' || convert->spe == '%')
 		return (convertion_char(argument, convert));
 	if (convert->spe == 's')
 		return (convert_redirection(convert, va_arg(argument, char *)));
@@ -114,9 +108,12 @@ int	ft_printf(const	char *str, ...)
 	{
 		while (str[i] == '%')
 			if ((parsing(convert, argument, str, &i)) == -1)
-				return (-1);
-		convert->result += write(1, &str[i], 1);
-		i++;
+				return (ret_free(convert, -1));
+		if (str[i] != 0)
+		{
+			convert->result += write(1, &str[i], 1);
+			i++;
+		}
 	}
 	i = convert->result;
 	free(convert);

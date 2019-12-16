@@ -6,7 +6,7 @@
 /*   By: mbosson <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/12/12 15:42:57 by mbosson      #+#   ##    ##    #+#       */
-/*   Updated: 2019/12/16 10:42:01 by mbosson     ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/12/16 17:18:41 by mbosson     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -78,4 +78,10 @@ int		str_null(t_list *convert)
 	if (convert->spe == 's')
 		convert_redirection(convert, "(null)");
 	return (0);
+}
+
+int		ret_free(void *str, int ret)
+{
+	free(str);
+	return (ret);
 }

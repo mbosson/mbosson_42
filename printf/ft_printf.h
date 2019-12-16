@@ -6,7 +6,7 @@
 /*   By: mbosson <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/12/03 15:22:50 by mbosson      #+#   ##    ##    #+#       */
-/*   Updated: 2019/12/16 10:53:52 by mbosson     ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/12/16 17:19:43 by mbosson     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -35,6 +35,7 @@ int				ft_strlen(const char *str);
 int				convertion_char(va_list argument, t_list *convert);
 int				convert_redirection(t_list *convert, char *str);
 int				str_null(t_list *convert);
+int				ret_free(void *str, int ret);
 char			*ft_itoa(long int n, t_list *convert);
 char			*ft_itoa_base(unsigned long int number,
 		char *base, t_list *convert);
