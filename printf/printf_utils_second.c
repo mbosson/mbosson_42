@@ -6,7 +6,7 @@
 /*   By: mbosson <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/12/10 10:29:15 by mbosson      #+#   ##    ##    #+#       */
-/*   Updated: 2019/12/13 13:05:25 by mbosson     ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/12/16 10:40:36 by mbosson     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -34,7 +34,7 @@ char	*calcul_base(unsigned long int number, char *base, int leng, int count)
 	if ((result = malloc(sizeof(char) * (count + 1))) == 0)
 		return (NULL);
 	result[count--] = 0;
-	while (number > leng - 1)
+	while (number > (unsigned long int)leng - 1)
 	{
 		result[count--] = base[number % leng];
 		number = number / leng;
@@ -43,16 +43,19 @@ char	*calcul_base(unsigned long int number, char *base, int leng, int count)
 	return (result);
 }
 
-char	*ft_itoa_base(unsigned long int number, char *base)
+char	*ft_itoa_base(unsigned long int number, char *base, t_list *convert)
 {
 	int					leng;
 	int					count;
 	unsigned long int	buff;
+	char				*result;
 
+	if (number == 0 && convert->prec == 0)
+		return (result = null_str());
 	leng = ft_strlen(base);
 	buff = number;
 	count = 1;
-	while (buff > leng - 1)
+	while (buff > (unsigned long int)leng - 1)
 	{
 		buff = buff / leng;
 		count++;
@@ -60,7 +63,7 @@ char	*ft_itoa_base(unsigned long int number, char *base)
 	return (calcul_base(number, base, leng, count));
 }
 
-char	*ft_complete(char *result, int n, int count, int p_or_n)
+char	*ft_complete(char *result, long int n, int count, int p_or_n)
 {
 	if (p_or_n == 1)
 		result[0] = '-';
@@ -76,13 +79,15 @@ char	*ft_complete(char *result, int n, int count, int p_or_n)
 	return (result);
 }
 
-char	*ft_itoa(long int n)
+char	*ft_itoa(long int n, t_list *convert)
 {
 	int					count;
 	int					p_or_n;
 	char				*result;
-	int					buff;
+	long int			buff;
 
+	if (n == 0 && convert->prec == 0)
+		return (null_str());
 	count = 0;
 	p_or_n = 0;
 	if (n < 0)

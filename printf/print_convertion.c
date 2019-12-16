@@ -6,7 +6,7 @@
 /*   By: mbosson <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/12/06 13:31:50 by mbosson      #+#   ##    ##    #+#       */
-/*   Updated: 2019/12/13 13:32:59 by mbosson     ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/12/16 10:53:03 by mbosson     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -23,7 +23,7 @@ int	convertion_str(t_list *convert, char *str, char flag)
 	j = 0;
 	n = ft_strlen(str);
 	if (n == -1)
-		return (str_null(convert, str));
+		return (str_null(convert));
 	if (n > convert->prec)
 		n = convert->prec;
 	if (convert->width > n)
@@ -50,7 +50,7 @@ int	convertion_flag_str(t_list *convert, char *str, char flag)
 	j = 0;
 	n = ft_strlen(str);
 	if (n == -1)
-		return (str_null(convert, str));
+		return (str_null(convert));
 	if (n > convert->prec)
 		n = convert->prec;
 	if (convert->width > n)
@@ -62,11 +62,14 @@ int	convertion_flag_str(t_list *convert, char *str, char flag)
 	return (1);
 }
 
-int	convert_redirection_decimal(t_list *convert, char *str, char flag)
+int	convert_redirect_decimal(t_list *convert, char *str, char flag, int len)
 {
-	int len;
-
-	len = ft_strlen(str);
+	if (convert->prec == 0 && str[0] == 0)
+	{
+		convertion_str(convert, str, flag);
+		free(str);
+		return (0);
+	}
 	if (convert->prec < 0 && convert->flag == '0')
 		flag = '0';
 	if (convert->prec < len)
@@ -94,7 +97,7 @@ int	convert_redirection(t_list *convert, char *str)
 	if (convert->spe == 'p')
 		str = put_ox(str);
 	if (convert->spe != 'c' && convert->spe != 's')
-		return (convert_redirection_decimal(convert, str, flag));
+		return (convert_redirect_decimal(convert, str, flag, ft_strlen(str)));
 	if (convert->prec < 0)
 		convert->prec = ft_strlen(str);
 	if (convert->flag == '0')
