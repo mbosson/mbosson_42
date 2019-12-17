@@ -6,7 +6,7 @@
 /*   By: mbosson <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/12/03 15:22:50 by mbosson      #+#   ##    ##    #+#       */
-/*   Updated: 2019/12/16 17:19:43 by mbosson     ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/12/17 19:01:12 by mbosson     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -25,6 +25,7 @@ typedef	struct	s_list
 	int			prec;
 	char		spe;
 	int			result;
+	int			special;
 }				t_list;
 
 int				ft_printf(const char *str, ...);
@@ -34,7 +35,7 @@ int				ft_isalpha(int c);
 int				ft_strlen(const char *str);
 int				convertion_char(va_list argument, t_list *convert);
 int				convert_redirection(t_list *convert, char *str);
-int				str_null(t_list *convert);
+int				utils(t_list *convert, char *flag, int choice);
 int				ret_free(void *str, int ret);
 char			*ft_itoa(long int n, t_list *convert);
 char			*ft_itoa_base(unsigned long int number,

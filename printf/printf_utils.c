@@ -6,7 +6,7 @@
 /*   By: mbosson <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/12/04 08:08:43 by mbosson      #+#   ##    ##    #+#       */
-/*   Updated: 2019/12/16 08:48:10 by mbosson     ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/12/17 18:54:34 by mbosson     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -18,6 +18,7 @@ void	set_conv_null(t_list *convert)
 	convert->flag = (char)NULL;
 	convert->width = -1;
 	convert->prec = -1;
+	convert->special = -1;
 	convert->spe = (char)NULL;
 }
 

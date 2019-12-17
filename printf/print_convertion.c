@@ -6,7 +6,7 @@
 /*   By: mbosson <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/12/06 13:31:50 by mbosson      #+#   ##    ##    #+#       */
-/*   Updated: 2019/12/16 17:02:38 by mbosson     ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/12/17 19:00:31 by mbosson     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -23,20 +23,20 @@ int	convertion_str(t_list *convert, char *str, char flag)
 	j = 0;
 	n = ft_strlen(str);
 	if (n == -1)
-		return (str_null(convert));
+		return (utils(convert, 0, 1));
 	if (n > convert->prec)
 		n = convert->prec;
 	if (convert->width > n)
 		j = convert->width - n;
-	if (convert->spe == 'd' && convert->flag == '0' && str[0] == '-')
-	{
-		convert->result += write(1, "-", 1);
-		i++;
-	}
+	if (convert->spe == 'd' && convert->flag == '0' && str[0] == '-'
+			&& convert->special == 1)
+		convert->result += write(1, "-", ++i);
 	while (j-- != 0)
 		convert->result += write(1, &flag, 1);
 	while (i < n)
 		convert->result += write(1, &str[i++], 1);
+	if (convert->spe == 'c' && str[0] == 0)
+		write(1, "\0", 1);
 	return (0);
 }
 
@@ -50,11 +50,13 @@ int	convertion_flag_str(t_list *convert, char *str, char flag)
 	j = 0;
 	n = ft_strlen(str);
 	if (n == -1)
-		return (str_null(convert));
+		return (utils(convert, 0, 1));
 	if (n > convert->prec)
 		n = convert->prec;
 	if (convert->width > n)
 		j = convert->width - n;
+	if (convert->spe == 'c' && str[0] == 0)
+		write(1, "\0", 1);
 	while (i < n)
 		convert->result += write(1, &str[i++], 1);
 	while (j-- != 0)
@@ -70,7 +72,7 @@ int	convert_redirect_decimal(t_list *convert, char *str, char flag, int len)
 		return (ret_free(str, 1));
 	}
 	if (convert->prec < 0 && convert->flag == '0')
-		flag = '0';
+		utils(convert, &flag, 2);
 	if (convert->prec < len)
 		convert->prec = len;
 	else if (convert->prec >= len)

@@ -6,7 +6,7 @@
 /*   By: mbosson <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/12/03 13:53:42 by mbosson      #+#   ##    ##    #+#       */
-/*   Updated: 2019/12/16 17:19:17 by mbosson     ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/12/17 18:24:08 by mbosson     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -30,6 +30,8 @@ int	redirection_second(va_list argument, t_list *convert)
 
 int	redirection(va_list argument, t_list *convert)
 {
+	if (convert->spe == 'i')
+		convert->spe = 'd';
 	if (convert->spe == 'c' || convert->spe == '%')
 		return (convertion_char(argument, convert));
 	if (convert->spe == 's')
@@ -39,7 +41,7 @@ int	redirection(va_list argument, t_list *convert)
 		return (convert_redirection(convert, ft_itoa_base(va_arg(argument,
 							unsigned long int), "0123456789abcdef", convert)));
 	}
-	if (convert->spe == 'd' || convert->spe == 'i')
+	if (convert->spe == 'd')
 	{
 		return (convert_redirection(convert,
 					ft_itoa(va_arg(argument, int), convert)));

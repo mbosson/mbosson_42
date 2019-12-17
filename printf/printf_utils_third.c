@@ -6,7 +6,7 @@
 /*   By: mbosson <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/12/12 15:42:57 by mbosson      #+#   ##    ##    #+#       */
-/*   Updated: 2019/12/16 17:18:41 by mbosson     ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/12/17 19:01:00 by mbosson     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -73,10 +73,15 @@ char	*null_str(void)
 	return (str);
 }
 
-int		str_null(t_list *convert)
+int		utils(t_list *convert, char *flag, int choice)
 {
-	if (convert->spe == 's')
+	if (convert->spe == 's' && choice == 1)
 		convert_redirection(convert, "(null)");
+	else if (choice == 2)
+	{
+		*flag = '0';
+		convert->special = 1;
+	}
 	return (0);
 }
 

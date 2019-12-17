@@ -1,4 +1,5 @@
-#include "ft_printf.h"
+#include "../ft_printf.h"
+#include <stdio.h>
 #include <limits.h>
 
 int main(void)
@@ -7,16 +8,25 @@ int main(void)
 	unsigned int u = 453123156;
 	unsigned int x = 42324865;
 	unsigned int X = 123456865;
+	int i = 42689312;
 	int d = -1365623632;
 	char c = 'c';
+	int ret = 0;
 
 	printf("\n---------------Decimaux---------------\n\n");
 
 	printf("true : ");
-	printf("#%d#", (int)NULL);
+	printf("#%d%d#", 0, 150);
 	printf("\n");
 	ft_printf("ft_  : ");
-	ft_printf("#%d#", (int)NULL);
+	ft_printf("#%d%d#", 0, 150);
+	printf("\n\n");
+
+	printf("true : ");
+	printf("#%.d#", 0);
+	printf("\n");
+	ft_printf("ft_  : ");
+	ft_printf("#%.d#", 0);
 	printf("\n\n");
 
 	printf("true : ");
@@ -68,6 +78,52 @@ int main(void)
 	ft_printf("#%030.30d#", d);
 	printf("\n\n");
 
+	printf("true : ");
+	printf("#%20.4i#", d);
+	printf("\n");
+	ft_printf("ft_  : ");
+	ft_printf("#%20.4i#", d);
+	printf("\n\n");
+
+	printf("\n---------------Long---------------\n\n");
+
+	printf("true : ");
+	printf("#%4i#", i);
+	printf("\n");
+	ft_printf("ft_  : ");
+	ft_printf("#%4i#", i);
+	printf("\n\n");
+
+	printf("true : ");
+	printf("#%.20i#", i);
+	printf("\n");
+	ft_printf("ft_  : ");
+	ft_printf("#%.20i#", i);
+	printf("\n\n");
+
+	printf("true : ");
+	printf("#%20.4i#", i);
+	printf("\n");
+	ft_printf("ft_  : ");
+	ft_printf("#%20.4i#", i);
+	printf("\n\n");
+
+	printf("true : ");
+	printf("#%2.30i#", i);
+	printf("\n");
+	ft_printf("ft_  : ");
+	ft_printf("#%2.30i#", i);
+	printf("\n\n");
+
+	printf("true : ");
+	printf("#%030.30i#", i);
+	printf("\n");
+	ft_printf("ft_  : ");
+	ft_printf("#%030.30i#", i);
+	printf("\n\n");
+
+
+
 	printf("\n---------------Unsigned---------------\n\n");
 
 	printf("true : ");
@@ -75,6 +131,13 @@ int main(void)
 	printf("\n");
 	ft_printf("ft_  : ");
 	ft_printf("#%u#", (unsigned int)NULL);
+	printf("\n\n");
+
+	printf("true : ");
+	printf("#%u#", UINT_MAX);
+	printf("\n");
+	ft_printf("ft_  : ");
+	ft_printf("#%u#", UINT_MAX);
 	printf("\n\n");
 
 	printf("true : ");
@@ -303,17 +366,39 @@ int main(void)
 	printf("\n---------------Characteres---------------\n\n");
 
 	printf("true : ");
-	printf("#%c#", 0);
+	ret = printf("#%.c#\n", 0);
+	printf("ret : %d\n", ret);
 	printf("\n");
 	ft_printf("ft_  : ");
-	ft_printf("#%c#", 0);
+	ret = ft_printf("#%.c#\n", 0);
+	printf("ret : %d\n", ret);
 	printf("\n\n");
 
 	printf("true : ");
-	printf("#%c#", (int)NULL);
+	ret = printf("#%.c#\n", c);
+	printf("ret : %d\n", ret);
 	printf("\n");
 	ft_printf("ft_  : ");
-	ft_printf("#%c#", (int)NULL);
+	ret = ft_printf("#%.c#\n", c);
+	printf("ret : %d\n", ret);
+	printf("\n\n");
+
+	printf("true : ");
+	ret = printf("#%.0c#\n", c);
+	printf("ret : %d\n", ret);
+	printf("\n");
+	ft_printf("ft_  : ");
+	ret = ft_printf("#%.0c#\n", c);
+	printf("ret : %d\n", ret);
+	printf("\n\n");
+
+	printf("true : ");
+	ret = printf("#%c%c#\n", 'c', 0);
+	printf("ret : %d\n", ret);
+	printf("\n");
+	ft_printf("ft_  : ");
+	ret = ft_printf("#%c%c#\n", 'c', 0);
+	printf("ret : %d\n", ret);
 	printf("\n\n");
 
 	printf("true : ");
@@ -335,6 +420,51 @@ int main(void)
 	printf("\n");
 	ft_printf("ft_  : ");
 	ft_printf("#%-20c#", c);
+	printf("\n\n");
+
+	printf("true : ");
+	ret = printf("#%%#\n");
+	printf("ret : %d\n", ret);
+	printf("\n");
+	ft_printf("ft_  : ");
+	ret = ft_printf("#%%#\n");
+	printf("ret : %d\n", ret);
+	printf("\n\n");
+
+	printf("true : ");
+	ret = printf("#%.%#\n");
+	printf("ret : %d\n", ret);
+	printf("\n");
+	ft_printf("ft_  : ");
+	ret = ft_printf("#%.%#\n");
+	printf("ret : %d\n", ret);
+	printf("\n\n");
+
+	printf("true : ");
+	ret = printf("#%5.%#\n");
+	printf("ret : %d\n", ret);
+	printf("\n");
+	ft_printf("ft_  : ");
+	ret = ft_printf("#%5.%#\n");
+	printf("ret : %d\n", ret);
+	printf("\n\n");
+
+	printf("true : ");
+	ret = printf("#%.5%#\n");
+	printf("ret : %d\n", ret);
+	printf("\n");
+	ft_printf("ft_  : ");
+	ret = ft_printf("#%.5%#\n");
+	printf("ret : %d\n", ret);
+	printf("\n\n");
+
+	printf("true : ");
+	ret = printf("#%5.0%#\n");
+	printf("ret : %d\n", ret);
+	printf("\n");
+	ft_printf("ft_  : ");
+	ret = ft_printf("#%5.0%#\n");
+	printf("ret : %d\n", ret);
 	printf("\n\n");
 
 	printf("---------------Chaine--De--Caractere---------------\n\n");
@@ -409,6 +539,22 @@ int main(void)
 	ft_printf("#%-.30s#", s);
 	printf("\n\n");
 
+
+	printf("---------------Astrid-False--------------\n\n");
+
+	printf("true : ");
+	printf("#%08.4d#", -12456);
+	printf("\n");                              //9
+	ft_printf("ft_  : ");
+	ft_printf("#%08.4d#", -12456);
+	printf("\n\n");
+
+	printf("true : ");
+	printf("#%03i#", -1);
+	printf("\n");                              //9
+	ft_printf("ft_  : ");
+	ft_printf("#%03i#", -1);
+	printf("\n\n");
 
 	return (0);
 }
