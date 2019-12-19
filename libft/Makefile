@@ -6,7 +6,7 @@
 #    By: mbosson <marvin@le-101.fr>                 +:+   +:    +:    +:+      #
 #                                                  #+#   #+    #+    #+#       #
 #    Created: 2019/10/16 11:04:58 by mbosson      #+#   ##    ##    #+#        #
-#    Updated: 2019/10/25 16:11:44 by mbosson     ###    #+. /#+    ###.fr      #
+#    Updated: 2019/12/19 18:05:07 by mbosson     ###    #+. /#+    ###.fr      #
 #                                                          /                   #
 #                                                         /                    #
 # **************************************************************************** #
@@ -77,6 +77,7 @@ $(NAME)		:	$(OBJS)
 				 @ ar rc $(NAME) $(OBJS) $(LIB)
 				 @ ranlib $(NAME)
 				 @ rm -f $(OBJS) $(OBJS_BONUS)
+				 @ echo $(NAME) created
 
 clean		:
 				 rm -f $(OBJS) $(OBJS_BONUS)
@@ -90,6 +91,7 @@ bonus		:	$(OBJS)	$(OBJS_BONUS)
 				@ ar rc $(NAME) $(OBJS_BONUS) $(LIB)
 				@ ranlib $(NAME)
 				@ rm -f $(OBJS) $(OBJS_BONUS)
+				@ echo $(NAME) created with bonus
 
 norm		:	
 				norminette *.c libft.h
