@@ -6,7 +6,7 @@
 #    By: mbosson <marvin@le-101.fr>                 +:+   +:    +:    +:+      #
 #                                                  #+#   #+    #+    #+#       #
 #    Created: 2019/12/16 10:16:55 by mbosson      #+#   ##    ##    #+#        #
-#    Updated: 2019/12/16 10:55:26 by mbosson     ###    #+. /#+    ###.fr      #
+#    Updated: 2019/12/19 18:03:51 by mbosson     ###    #+. /#+    ###.fr      #
 #                                                          /                   #
 #                                                         /                    #
 # **************************************************************************** #
@@ -36,6 +36,7 @@ all			:	$(NAME)
 $(NAME)		:	$(OBJS)
 				 @ ar rc $(NAME) $(OBJS) $(LIB)
 				 @ ranlib $(NAME)
+				 @ echo $(NAME) created
 
 clean		:	
 				rm -f $(OBJS)
