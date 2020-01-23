@@ -6,14 +6,14 @@
 /*   By: mbosson <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/12/20 11:44:26 by mbosson      #+#   ##    ##    #+#       */
-/*   Updated: 2020/01/15 16:57:37 by mbosson     ###    #+. /#+    ###.fr     */
+/*   Updated: 2020/01/23 15:28:11 by mbosson     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
 
 #include "../cub3d.h"
 
-char **add_line(char **line)
+static char **add_line(char **line)
 {
 	char **buffer;
 	int i;
@@ -31,35 +31,24 @@ char **add_line(char **line)
 	return (buffer);
 }
 
-char	**parsing(char *file)
+m_list	*parsing(char *file)
 {
-	char **line;
-	int fd;
-	int i;
+	m_list	*map;
+	char	**line;
+	int		fd;
+	int		i;
 
 	i = 0;
 	fd = open("map.cub", O_RDONLY);
-	printf("fd : %d\n", fd);
 	if ((line = malloc(sizeof(char *) * 2)) == 0)
-		return (NULL);
+		return (0);
+	if ((map = malloc(sizeof(m_list) * 1)) == 0)
+		return (0);
 	line[1] = 0;
-	while (get_next_line(fd, &line[i]) > 0)
-	{
+	while (get_next_line(fd, &line[i++]) > 0)
 		line = add_line(line);
-		printf("%s\n", line[i]);
-		i++;
-	}
-	printf("ok");
-	return (line);
-}
-
-int main(void)
-{
-	char **line;
-	int i;
-
-	i = 0;
-	line = parsing("map.cub");
-	free(line);
-	return (0);
+	map->map = line;
+	map->tabheight = ft_strlen(map->map[0]) - 2;
+	map->tabwidth = tablen(map->map) - 2;
+	return (map);
 }
