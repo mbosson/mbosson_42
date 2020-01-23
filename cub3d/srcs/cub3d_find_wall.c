@@ -6,7 +6,7 @@
 /*   By: mbosson <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2020/01/21 17:11:09 by mbosson      #+#   ##    ##    #+#       */
-/*   Updated: 2020/01/23 17:38:38 by mbosson     ###    #+. /#+    ###.fr     */
+/*   Updated: 2020/01/23 18:01:49 by mbosson     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -62,7 +62,6 @@ long		find_wall_horizontal(t_list *player, m_list *map)
 	printf("player->y : %ld\n", player->y / 64);
 	printf("tabwidth : %d\n", map->tabwidth);
 	printf("tabheight : %d\n\n", map->tabheight);
-	printf("------Horizontal------");
 	if (player->dir <= M_PI && player->dir > 0)
 	{
 		Wall.y = trunc(player->y / CUBE_SIZE * CUBE_SIZE) - 1;
@@ -77,6 +76,7 @@ long		find_wall_horizontal(t_list *player, m_list *map)
 	Wall.interX = trunc(CUBE_SIZE / tan(player->dir));
 	Wall.colX = (int)Wall.x / CUBE_SIZE;
 	Wall.lineY = (int)Wall.y / CUBE_SIZE;
+	printf("------Horizontal------");
 	printf("\n\n~ First Cube ~\nWall.x : %ld\n", Wall.x / CUBE_SIZE);
 	printf("Wall.y : %ld\n\n", Wall.y / CUBE_SIZE);
 	if (Wall.colX < 0 || Wall.colX > map->tabheight || Wall.lineY < 0 || Wall.lineY > map->tabwidth)
@@ -100,6 +100,7 @@ int main(void)
 {
 	t_list	*player;
 	m_list	*map;
+	l_list	*libx;
 	long	long_vertical;
 	long	long_horizontal;
 	float	FOV;
