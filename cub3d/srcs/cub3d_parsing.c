@@ -6,7 +6,7 @@
 /*   By: mbosson <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/12/20 11:44:26 by mbosson      #+#   ##    ##    #+#       */
-/*   Updated: 2020/01/23 15:28:11 by mbosson     ###    #+. /#+    ###.fr     */
+/*   Updated: 2020/01/24 14:57:37 by mbosson     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -39,7 +39,7 @@ m_list	*parsing(char *file)
 	int		i;
 
 	i = 0;
-	fd = open("map.cub", O_RDONLY);
+	fd = open(file, O_RDONLY);
 	if ((line = malloc(sizeof(char *) * 2)) == 0)
 		return (0);
 	if ((map = malloc(sizeof(m_list) * 1)) == 0)
@@ -48,7 +48,7 @@ m_list	*parsing(char *file)
 	while (get_next_line(fd, &line[i++]) > 0)
 		line = add_line(line);
 	map->map = line;
-	map->tabheight = ft_strlen(map->map[0]) - 2;
-	map->tabwidth = tablen(map->map) - 2;
+	map->tabwidth = ft_strlen(map->map[0]) - 2;
+	map->tabheight = tablen(map->map) - 2;
 	return (map);
 }
