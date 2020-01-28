@@ -6,7 +6,7 @@
 /*   By: mbosson <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/12/20 11:44:26 by mbosson      #+#   ##    ##    #+#       */
-/*   Updated: 2020/01/24 14:57:37 by mbosson     ###    #+. /#+    ###.fr     */
+/*   Updated: 2020/01/28 10:08:30 by mbosson     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -40,13 +40,17 @@ m_list	*parsing(char *file)
 
 	i = 0;
 	fd = open(file, O_RDONLY);
+	printf("fd = %d\n", fd);
 	if ((line = malloc(sizeof(char *) * 2)) == 0)
 		return (0);
 	if ((map = malloc(sizeof(m_list) * 1)) == 0)
 		return (0);
 	line[1] = 0;
 	while (get_next_line(fd, &line[i++]) > 0)
+	{
 		line = add_line(line);
+		printf("%s\n", line[i - 1]);
+	}
 	map->map = line;
 	map->tabwidth = ft_strlen(map->map[0]) - 2;
 	map->tabheight = tablen(map->map) - 2;

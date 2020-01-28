@@ -6,7 +6,7 @@
 /*   By: mbosson <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2020/01/15 14:53:31 by mbosson      #+#   ##    ##    #+#       */
-/*   Updated: 2020/01/24 14:47:57 by mbosson     ###    #+. /#+    ###.fr     */
+/*   Updated: 2020/01/28 10:45:55 by mbosson     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -15,7 +15,7 @@
 
 int	ft_isalpha(int c)
 {
-	if ((c >= 'a' && c <= 'z') || (c >= 'A' && c <= 'Z'))
+	if (c == 'W' || c == 'N' || c == 'E' || c == 'S')
 		return (1);
 	else
 		return (0);
@@ -64,8 +64,11 @@ int tablen(char **tab)
 
 long	whose_higher(r_list raycasting)
 {
-	if (raycasting.long_horizontal < raycasting.long_vertical)
+	if (raycasting.long_horizontal < raycasting.long_vertical
+			&& raycasting.long_horizontal > 0)
 		return (raycasting.long_horizontal);
-	else
+	else if (raycasting.long_vertical > 0)
 		return (raycasting.long_vertical);
+	printf("Bad values.\nVertical : %f\nHorizontal : %f\n", raycasting.long_vertical, raycasting.long_horizontal);
+	exit(1);
 }

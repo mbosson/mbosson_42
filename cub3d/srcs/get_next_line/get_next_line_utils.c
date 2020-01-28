@@ -6,7 +6,7 @@
 /*   By: mbosson <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/11/12 11:04:09 by mbosson      #+#   ##    ##    #+#       */
-/*   Updated: 2019/11/28 18:19:46 by mbosson     ###    #+. /#+    ###.fr     */
+/*   Updated: 2020/01/28 16:13:26 by mbosson     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -43,7 +43,7 @@ static	char	*ft_cpy_join(char const *s1, char const *s2, char *result)
 		j++;
 	}
 	result[i + j] = 0;
-	free((char *)s1);
+//	free((char *)s1);
 	return (result);
 }
 
