@@ -25,7 +25,7 @@ int	key_hook(int key, d_list *bag)
 		exit(1);
 	else if (key == W)
 	{
-		if ((bag->player->x + cos(bag->player->dir) * SPEED) < bag->map->tabwidth)
+		if ((bag->player->x + cos(bag->player->dir) * SPEED) < bag->map->tabwidth * 64)
 			bag->player->x += cos(bag->player->dir) * SPEED;
 		if ((bag->player->y - sin(bag->player->dir) * SPEED) < bag->map->tabheight * 64)
 			bag->player->y -= sin(bag->player->dir) * SPEED;
@@ -33,7 +33,6 @@ int	key_hook(int key, d_list *bag)
 	}
 	else if (key == S)
 	{
-		bag->player->x -= cos(bag->player->dir) * SPEED;
 		bag->player->x -= cos(bag->player->dir) * SPEED;
 		bag->player->y += sin(bag->player->dir) * SPEED;
 		ray_tracing(bag);

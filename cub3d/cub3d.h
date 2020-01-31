@@ -37,8 +37,8 @@
 
 typedef struct	k_list				//MAP
 {
-	int			tabheight; // >
-	int			tabwidth;  // ^
+	int			tabheight; // ^
+	int			tabwidth;  // >
 	char		**map;
 }				m_list;
 
@@ -96,8 +96,8 @@ int				tablen(char **tab);
 int				set_player(d_list *bag);
 int				ray_tracing(d_list *bag);
 int				key_hook(int key, d_list *bag);
-float			find_wall_horizontal(t_list *player, m_list *map, r_list raycasting);
-float			find_wall_vertical(t_list *player, m_list *map, r_list raycasting);
+double			find_wall_horizontal(t_list *player, m_list *map, r_list raycasting);
+double			find_wall_vertical(t_list *player, m_list *map, r_list raycasting);
 long			whose_higher(r_list raycasting);
 l_list			*set_libx(void);
 d_list			*set_struct(char *file);
