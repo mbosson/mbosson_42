@@ -6,7 +6,7 @@
 /*   By: mbosson <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2020/01/27 13:26:25 by mbosson      #+#   ##    ##    #+#       */
-/*   Updated: 2020/01/28 16:47:03 by mbosson     ###    #+. /#+    ###.fr     */
+/*   Updated: 2020/02/04 15:33:57 by mbosson     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -59,14 +59,14 @@ int	key_hook(int key, d_list *bag)
 	}
 	else if (key == RIGHT)
 	{
-		bag->player->dir -= 0.02;
+		bag->player->dir -= 0.05;
 		if (bag->player->dir < 0)
 			bag->player->dir += M_PI * 2;
 		ray_tracing(bag);
 	}
 	else if (key == LEFT)
 	{
-		bag->player->dir += 0.02;
+		bag->player->dir += 0.05;
 		if (bag->player->dir > M_PI * 2)
 			bag->player->dir -= M_PI * 2;
 		ray_tracing(bag);

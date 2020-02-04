@@ -6,7 +6,7 @@
 /*   By: mbosson <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/12/20 11:44:26 by mbosson      #+#   ##    ##    #+#       */
-/*   Updated: 2020/01/28 10:08:30 by mbosson     ###    #+. /#+    ###.fr     */
+/*   Updated: 2020/02/04 16:45:32 by mbosson     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -52,7 +52,7 @@ m_list	*parsing(char *file)
 		printf("%s\n", line[i - 1]);
 	}
 	map->map = line;
-	map->tabwidth = ft_strlen(map->map[0]) - 2;
+	map->tabwidth = ft_strlen(map->map[0]) - 1;
 	map->tabheight = tablen(map->map) - 2;
 	return (map);
 }

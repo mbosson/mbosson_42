@@ -6,16 +6,16 @@
 /*   By: mbosson <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2020/01/15 14:54:21 by mbosson      #+#   ##    ##    #+#       */
-/*   Updated: 2020/01/28 16:12:09 by mbosson     ###    #+. /#+    ###.fr     */
+/*   Updated: 2020/02/04 17:09:35 by mbosson     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
 
 #ifndef CUB3D_H
 # define CUB3D_H
-# define FOV_DEG		90
-# define WIDTH_ECRAN	800
-# define HEIGHT_ECRAN	600
+# define FOV_DEG		60
+# define WIDTH_ECRAN	1920
+# define HEIGHT_ECRAN	1080
 # define CUBE_SIZE		64
 # define ESC			53
 # define W				13
@@ -72,11 +72,12 @@ typedef	struct	j_list				//VALEUR RAYTRACING
 	double		long_vertical;
 	double		long_horizontal;
 	float		FOV;
-	float		ray;
+	double		ray;
 	float		inter_ray;
 	float		last_ray;
-	double			dist_to_screen;
+	double		dist_to_screen;
 	int			middle_of_screen;
+	int			column;
 }				r_list;
 
 typedef struct	p_list
@@ -98,9 +99,9 @@ int				ray_tracing(d_list *bag);
 int				key_hook(int key, d_list *bag);
 double			find_wall_horizontal(t_list *player, m_list *map, r_list raycasting);
 double			find_wall_vertical(t_list *player, m_list *map, r_list raycasting);
-long			whose_higher(r_list raycasting);
+double			whose_higher(r_list raycasting);
 l_list			*set_libx(void);
 d_list			*set_struct(char *file);
-void			draw_wall(r_list raycasting, l_list *mlx, float dist_to_wall, int column);
+void			draw_wall(r_list raycasting, l_list *mlx, double dist_to_wall);
 
 #endif
