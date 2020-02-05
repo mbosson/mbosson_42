@@ -6,7 +6,7 @@
 /*   By: mbosson <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2020/01/24 08:39:25 by mbosson      #+#   ##    ##    #+#       */
-/*   Updated: 2020/01/28 16:43:44 by mbosson     ###    #+. /#+    ###.fr     */
+/*   Updated: 2020/02/05 15:12:34 by mbosson     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -20,10 +20,9 @@ int	main(int argc, char **argv)
 	if (argc > 2)
 		return (write(1, "Too much arguments.", 19));
 	bag = set_struct(argv[1]);
-	printf("tabheight : %d\n\n", bag->map->tabheight);
-	printf("tabwidth : %d\n\n", bag->map->tabwidth);
 	printf("player.x : %d\nplayer.y : %d\n", bag->player->x / 64, bag->player->y / 64);
-	mlx_hook(bag->mlx->win_ptr, 2, 0, key_hook, bag);
-	//ray_tracing(bag);
+	mlx_hook(bag->mlx->win_ptr, 2, 0, key_press, bag);
+	mlx_hook(bag->mlx->win_ptr, 3, 0, key_unpress, bag);
+	mlx_loop_hook(bag->mlx->mlx_ptr, key_hook, bag);
 	mlx_loop(bag->mlx->mlx_ptr);
 }

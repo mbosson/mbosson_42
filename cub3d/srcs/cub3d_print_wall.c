@@ -6,7 +6,7 @@
 /*   By: mbosson <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2020/01/24 12:30:34 by mbosson      #+#   ##    ##    #+#       */
-/*   Updated: 2020/02/04 16:24:47 by mbosson     ###    #+. /#+    ###.fr     */
+/*   Updated: 2020/02/05 13:25:21 by mbosson     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -49,7 +49,7 @@ void	draw_wall(r_list raycasting, l_list *mlx, double dist_to_wall)
 		if (raycasting.column == 150)
 			mlx->data[pixel] = 0x6400FF;
 		else
-			mlx->data[pixel] = 0x9600A0;
+			mlx->data[pixel] = raycasting.color;
 		pixel += WIDTH_ECRAN;
 		i++;
 	}
@@ -59,7 +59,7 @@ void	draw_wall(r_list raycasting, l_list *mlx, double dist_to_wall)
 		if (raycasting.column == 150)
 			mlx->data[pixel] = 0x6400FF;
 		else
-			mlx->data[pixel] = 0x9600A0;
+			mlx->data[pixel] = raycasting.color;
 		pixel -= WIDTH_ECRAN;
 		i--;
 	}

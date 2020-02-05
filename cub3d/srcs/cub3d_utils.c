@@ -6,7 +6,7 @@
 /*   By: mbosson <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2020/01/15 14:53:31 by mbosson      #+#   ##    ##    #+#       */
-/*   Updated: 2020/02/04 16:17:20 by mbosson     ###    #+. /#+    ###.fr     */
+/*   Updated: 2020/02/05 13:40:56 by mbosson     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -62,13 +62,25 @@ int tablen(char **tab)
 	return (i);
 }
 
-double	whose_higher(r_list raycasting)
+double	whose_higher(r_list *raycasting)
 {
-	if (raycasting.long_horizontal < raycasting.long_vertical
-			&& raycasting.long_horizontal > 0)
-		return (raycasting.long_horizontal);
-	else if (raycasting.long_vertical > 0)
-		return (raycasting.long_vertical);
-	printf("Bad values.\nVertical : %f\nHorizontal : %f\n", raycasting.long_vertical, raycasting.long_horizontal);
+	if (raycasting->long_horizontal < raycasting->long_vertical
+			&& raycasting->long_horizontal > 0)
+	{
+		raycasting->color = 0xC8C8FF;
+		if (raycasting->last_wall == 1)
+			raycasting->color = 0;
+		raycasting->last_wall = 0;
+		return (raycasting->long_horizontal);
+	}
+	else if (raycasting->long_vertical > 0)
+	{
+		raycasting->color = 0x9600A0;
+		if (raycasting->last_wall == 0)
+			raycasting->color = 0;
+		raycasting->last_wall = 1;
+		return (raycasting->long_vertical);
+	}
+	printf("Bad values.\nVertical : %f\nHorizontal : %f\n", raycasting->long_vertical, raycasting->long_horizontal);
 	exit(1);
 }

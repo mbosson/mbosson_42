@@ -6,7 +6,7 @@
 /*   By: mbosson <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2020/01/27 13:07:31 by mbosson      #+#   ##    ##    #+#       */
-/*   Updated: 2020/01/28 10:14:15 by mbosson     ###    #+. /#+    ###.fr     */
+/*   Updated: 2020/02/05 15:03:42 by mbosson     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -48,6 +48,24 @@ int	set_player(d_list *bag)
 	return (-1);
 }
 
+z_list	*set_key_struct(void)
+{
+	z_list	*key;
+
+	if ((key = malloc(sizeof(z_list) * 1)) == 0)
+		exit(1);
+	key->w = 0;
+	key->s = 0;
+	key->a = 0;
+	key->d = 0;
+	key->left = 0;
+	key->right = 0;
+	key->up = 0;
+	key->down = 0;
+	key->esc = 0;
+	return (key);
+}
+
 l_list	*set_libx(void)
 {
 	l_list	*libx;
@@ -72,6 +90,7 @@ d_list	*set_struct(char *file)
 		return (NULL);
 	bag->map = parsing(file);
 	bag->mlx = set_libx();
+	bag->key = set_key_struct();
 	set_player(bag);
 	return (bag);
 }

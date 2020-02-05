@@ -6,7 +6,7 @@
 /*   By: mbosson <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2020/01/21 17:11:09 by mbosson      #+#   ##    ##    #+#       */
-/*   Updated: 2020/02/04 17:07:20 by mbosson     ###    #+. /#+    ###.fr     */
+/*   Updated: 2020/02/05 16:26:22 by mbosson     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -27,7 +27,7 @@ double	find_wall_vertical(t_list *player, m_list *map, r_list raycasting)
 	}
 	else
 	{
-		Wall.x = player->x / CUBE_SIZE * CUBE_SIZE - 1;
+		Wall.x = player->x / CUBE_SIZE * CUBE_SIZE - 0.0001;
 		Wall.interX = CUBE_SIZE * -1;
 	}
 	Wall.y = player->y + (player->x - Wall.x) * tan(raycasting.ray);
@@ -98,7 +98,7 @@ double		find_wall_horizontal(t_list *player, m_list *map, r_list raycasting)
 
 	if (raycasting.ray < M_PI && raycasting.ray > 0)
 	{
-		Wall.y = player->y / CUBE_SIZE * CUBE_SIZE - 0.1;
+		Wall.y = player->y / CUBE_SIZE * CUBE_SIZE - 0.0001;
 		Wall.interY = CUBE_SIZE * -1;
 		Wall.interX = 1;
 	}
@@ -187,7 +187,7 @@ int ray_tracing(d_list *bag)
 		raycasting.long_horizontal = find_wall_horizontal(bag->player, bag->map, raycasting);
 		raycasting.long_vertical = find_wall_vertical(bag->player, bag->map, raycasting);
 		raycasting.ray -= raycasting.inter_ray;
-		draw_wall(raycasting, bag->mlx, whose_higher(raycasting) * cos(raycasting.ray - bag->player->dir));
+		draw_wall(raycasting, bag->mlx, whose_higher(&raycasting) * cos(raycasting.ray - bag->player->dir));
 		raycasting.column++;
 	}
 	mlx_put_image_to_window(bag->mlx->mlx_ptr, bag->mlx->win_ptr, bag->mlx->img_ptr, 0, 0);
