@@ -6,7 +6,7 @@
 /*   By: mbosson <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2020/01/27 13:26:25 by mbosson      #+#   ##    ##    #+#       */
-/*   Updated: 2020/02/05 16:17:29 by mbosson     ###    #+. /#+    ###.fr     */
+/*   Updated: 2020/02/05 17:56:02 by mbosson     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -19,22 +19,28 @@
 int	key_hook(d_list *bag)
 {
 	float angle;
+	char **map;
 
+	int i = 0;
+	int j = 0;
+	map = bag->map->map;
 	if (bag->key->esc == 1)
 		exit(1);
 	angle = bag->player->dir;
 	if (bag->key->w == 1)
 	{
-		if ((bag->player->x + cos(bag->player->dir) * SPEED) < bag->map->tabwidth * 64)
+		if (map[(int)bag->player->y / 64][(int)((bag->player->x + cos(bag->player->dir) * SPEED) / 64)] != '1')
 			bag->player->x += cos(bag->player->dir) * SPEED;
-		if ((bag->player->y - sin(bag->player->dir) * SPEED) < bag->map->tabheight * 64)
+		if (map[(int)((bag->player->y - sin(bag->player->dir) * SPEED) / 64)][(int)bag->player->x / 64] != '1')
 			bag->player->y -= sin(bag->player->dir) * SPEED;
 		ray_tracing(bag);
 	}
 	if (bag->key->s == 1)
 	{
-		bag->player->x -= cos(bag->player->dir) * SPEED;
-		bag->player->y += sin(bag->player->dir) * SPEED;
+		if (map[(int)(bag->player->y / 64)][(int)((bag->player->x - cos(bag->player->dir) * SPEED) / 64)] != '1')
+			bag->player->x -= cos(bag->player->dir) * SPEED;
+		if (map[(int)(((bag->player->y + sin(bag->player->dir) * SPEED) / 64))][(int)(bag->player->x / 64)] != '1')
+			bag->player->y += sin(bag->player->dir) * SPEED;
 		ray_tracing(bag);
 	}
 	if (bag->key->d == 1)
@@ -43,8 +49,10 @@ int	key_hook(d_list *bag)
 			angle = (M_PI * 2) + angle - M_PI_2;
 		else
 			angle = angle - M_PI_2;
-		bag->player->x += cos(angle) * SPEED;
-		bag->player->y -= sin(angle) * SPEED;
+		if (map[(int)bag->player->y / 64][(int)((bag->player->x + cos(angle) * SPEED) / 64)] != '1')
+			bag->player->x += cos(angle) * SPEED;
+		if (map[(int)((bag->player->y - sin(angle) * SPEED) / 64)][(int)bag->player->x / 64] != '1')
+			bag->player->y -= sin(angle) * SPEED;
 		ray_tracing(bag);
 	}
 	if (bag->key->a == 1)
@@ -53,8 +61,10 @@ int	key_hook(d_list *bag)
 			angle = (M_PI * 2) + angle - M_PI_2;
 		else
 			angle = angle - M_PI_2;
-		bag->player->x -= cos(angle) * SPEED;
-		bag->player->y += sin(angle) * SPEED;
+		if (map[(int)bag->player->y / 64][(int)((bag->player->x - cos(angle) * SPEED) / 64)] != '1')
+			bag->player->x -= cos(angle) * SPEED;
+		if (map[(int)((bag->player->y + sin(angle) * SPEED) / 64)][(int)bag->player->x / 64] != '1')
+			bag->player->y += sin(angle) * SPEED;
 		ray_tracing(bag);
 	}
 	if (bag->key->right == 1)

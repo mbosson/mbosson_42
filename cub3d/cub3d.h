@@ -6,7 +6,7 @@
 /*   By: mbosson <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2020/02/05 14:49:13 by mbosson      #+#   ##    ##    #+#       */
-/*   Updated: 2020/02/05 16:25:55 by mbosson     ###    #+. /#+    ###.fr     */
+/*   Updated: 2020/02/05 16:54:25 by mbosson     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -57,18 +57,12 @@ typedef struct	k_list				//MAP
 
 typedef	struct	s_list				//PLAYER
 {
-	int				x;
-	int				y;
-	float			dir;
+	double				x;
+	double				y;
+	float				dir;
 }				t_list;
 
-typedef struct	y_list				//Wall
-{
-	int				x;
-	int				y;
-}					w_list;
-
-typedef struct	v_list				//CALCUL RAYTRACING
+typedef struct	v_list				//Wall / Calcul
 {
 	double		x;
 	double		y;

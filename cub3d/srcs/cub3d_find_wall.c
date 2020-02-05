@@ -6,7 +6,7 @@
 /*   By: mbosson <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2020/01/21 17:11:09 by mbosson      #+#   ##    ##    #+#       */
-/*   Updated: 2020/02/05 16:26:22 by mbosson     ###    #+. /#+    ###.fr     */
+/*   Updated: 2020/02/05 18:28:57 by mbosson     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -17,17 +17,16 @@ double	find_wall_vertical(t_list *player, m_list *map, r_list raycasting)
 {
 	c_list	Wall;
 	long	result;
-
 	Wall.interY = CUBE_SIZE * tan(raycasting.ray);
 	if ((raycasting.ray > 0 && raycasting.ray < M_PI_2) || (raycasting.ray > (3 * M_PI / 2) && raycasting.ray < 2 * M_PI))
 	{
-		Wall.x = player->x / CUBE_SIZE * CUBE_SIZE + CUBE_SIZE;
+		Wall.x = (int)player->x / CUBE_SIZE * CUBE_SIZE + CUBE_SIZE;
 		Wall.interX = CUBE_SIZE;
 		Wall.interY *= -1;
 	}
 	else
 	{
-		Wall.x = player->x / CUBE_SIZE * CUBE_SIZE - 0.0001;
+		Wall.x = (int)player->x / CUBE_SIZE * CUBE_SIZE - 0.0001;
 		Wall.interX = CUBE_SIZE * -1;
 	}
 	Wall.y = player->y + (player->x - Wall.x) * tan(raycasting.ray);
@@ -98,13 +97,13 @@ double		find_wall_horizontal(t_list *player, m_list *map, r_list raycasting)
 
 	if (raycasting.ray < M_PI && raycasting.ray > 0)
 	{
-		Wall.y = player->y / CUBE_SIZE * CUBE_SIZE - 0.0001;
+		Wall.y = (int)player->y / CUBE_SIZE * CUBE_SIZE - 0.0001;
 		Wall.interY = CUBE_SIZE * -1;
 		Wall.interX = 1;
 	}
 	else
 	{
-		Wall.y = player->y / CUBE_SIZE * CUBE_SIZE + CUBE_SIZE;
+		Wall.y = (int)player->y / CUBE_SIZE * CUBE_SIZE + CUBE_SIZE;
 		Wall.interY = CUBE_SIZE;
 		Wall.interX = -1;
 	}
