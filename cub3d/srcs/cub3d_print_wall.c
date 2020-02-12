@@ -6,7 +6,7 @@
 /*   By: mbosson <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2020/01/24 12:30:34 by mbosson      #+#   ##    ##    #+#       */
-/*   Updated: 2020/02/05 13:25:21 by mbosson     ###    #+. /#+    ###.fr     */
+/*   Updated: 2020/02/12 16:54:57 by mbosson     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -24,7 +24,7 @@ void	clear_wall(unsigned int *data)
 		data[i++] = 0;
 }
 
-void	draw_wall(r_list raycasting, l_list *mlx, double dist_to_wall)
+void	draw_wall(t_raycasting raycasting, t_mlx *mlx, double dist_to_wall)
 {
 	double	height_of_wall;
 	double	height_of_wall_2;

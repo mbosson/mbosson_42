@@ -6,7 +6,7 @@
 /*   By: mbosson <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2020/01/15 14:53:31 by mbosson      #+#   ##    ##    #+#       */
-/*   Updated: 2020/02/05 13:40:56 by mbosson     ###    #+. /#+    ###.fr     */
+/*   Updated: 2020/02/12 20:17:42 by mbosson     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -17,6 +17,8 @@ int	ft_isalpha(int c)
 {
 	if (c == 'W' || c == 'N' || c == 'E' || c == 'S')
 		return (1);
+	if (c >= 'A' && c <= 'Z')
+		return (2);
 	else
 		return (0);
 }
@@ -62,7 +64,7 @@ int tablen(char **tab)
 	return (i);
 }
 
-double	whose_higher(r_list *raycasting)
+double	whose_higher(t_raycasting *raycasting)
 {
 	if (raycasting->long_horizontal < raycasting->long_vertical
 			&& raycasting->long_horizontal > 0)

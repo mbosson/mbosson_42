@@ -6,7 +6,7 @@
 /*   By: mbosson <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/12/20 11:44:26 by mbosson      #+#   ##    ##    #+#       */
-/*   Updated: 2020/02/04 16:45:32 by mbosson     ###    #+. /#+    ###.fr     */
+/*   Updated: 2020/02/12 22:47:33 by mbosson     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -31,9 +31,84 @@ static char **add_line(char **line)
 	return (buffer);
 }
 
-m_list	*parsing(char *file)
+int		recover_value(char *line, t_struct *bag, char c)
 {
-	m_list	*map;
+	int i;
+	char buffer[600];
+
+	i = 0;
+	if (c == 'R')
+	{
+		while (ft_is_num(line[0]) == 0)
+			line++;
+		while (ft_is_num(line[0]) == 1)
+		{
+			buffer[i++] = line[0];
+			line++;
+		}
+		buffer[i] = 0;
+		bag->pars->width = ft_atoi(buffer);
+		while (line[0] == ' ')
+			line++;
+		bag->pars->height = ft_atoi(buffer);
+	}
+	free(buffer);
+	return (1);
+}
+
+int		recover_path(char *line, t_struct *bag)
+{
+	int i;
+	char c;
+
+	i = 0;
+	c = line[0];
+	if (c == 'F' || c == 'R')
+		return (recover_value(line, bag, c));
+	if (c == 'S' && line[1] != 'O')
+		c = 'P';
+	while (line[0] != '.')
+		line++;
+	if (c == 'N')
+		bag->pars->path_no = ft_strdup(line);
+	if (c == 'S')
+		bag->pars->path_so = ft_strdup(line);
+	if (c == 'W')
+		bag->pars->path_we = ft_strdup(line);
+	if (c == 'E')
+		bag->pars->path_ea = ft_strdup(line);
+	if (c == 'P')
+		bag->pars->path_s = ft_strdup(line);
+	return (1);
+}
+
+char	*parsing_info(int fd, t_struct *bag)
+{
+	char	*line;
+	int i;
+
+	i = 0;
+	if ((line = malloc(sizeof(char *) * 1)) == 0)
+		return (0);
+	line[1] = 0;
+	while (get_next_line(fd, &line[i++]) > 0)
+	{
+		if (line[0] == '1')
+			break;
+		else if (ft_isalpha(line[0]) == 2)
+			recover_path(line, bag);
+		else if (line[0] != '\n')
+		{
+			write(1, "Parsing Error.\n", 15);
+			exit(1);
+		}
+	}
+	return (line);
+}
+
+t_map	*parsing(char *file, t_struct *bag)
+{
+	t_map	*map;
 	char	**line;
 	int		fd;
 	int		i;
@@ -41,11 +116,15 @@ m_list	*parsing(char *file)
 	i = 0;
 	fd = open(file, O_RDONLY);
 	printf("fd = %d\n", fd);
+	if ((bag->pars = malloc(sizeof(t_pars) * 1)) == 0)
+		return (0);
 	if ((line = malloc(sizeof(char *) * 2)) == 0)
 		return (0);
-	if ((map = malloc(sizeof(m_list) * 1)) == 0)
+	if ((map = malloc(sizeof(t_map) * 1)) == 0)
 		return (0);
 	line[1] = 0;
+	line[0] = parsing_info(fd, bag);
+	line = add_line(line);
 	while (get_next_line(fd, &line[i++]) > 0)
 	{
 		line = add_line(line);

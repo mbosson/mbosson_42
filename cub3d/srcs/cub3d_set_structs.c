@@ -6,21 +6,21 @@
 /*   By: mbosson <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2020/01/27 13:07:31 by mbosson      #+#   ##    ##    #+#       */
-/*   Updated: 2020/02/05 15:03:42 by mbosson     ###    #+. /#+    ###.fr     */
+/*   Updated: 2020/02/12 22:45:52 by mbosson     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
 
 #include "../cub3d.h"
 
-int	set_player(d_list *bag)
+int	set_player(t_struct *bag)
 {
 	int i;
 	int j;
 
 	i = 0;
 	j = 0;
-	if ((bag->player = malloc(sizeof(t_list) * 1)) == 0)
+	if ((bag->player = malloc(sizeof(t_player) * 1)) == 0)
 		return (0); // free
 	while (bag->map->map[i] != 0)
 	{
@@ -48,11 +48,11 @@ int	set_player(d_list *bag)
 	return (-1);
 }
 
-z_list	*set_key_struct(void)
+t_key	*set_key_struct(void)
 {
-	z_list	*key;
+	t_key	*key;
 
-	if ((key = malloc(sizeof(z_list) * 1)) == 0)
+	if ((key = malloc(sizeof(t_key) * 1)) == 0)
 		exit(1);
 	key->w = 0;
 	key->s = 0;
@@ -63,17 +63,18 @@ z_list	*set_key_struct(void)
 	key->up = 0;
 	key->down = 0;
 	key->esc = 0;
+	key->shift = 0;
 	return (key);
 }
 
-l_list	*set_libx(void)
+t_mlx	*set_libx(void)
 {
-	l_list	*libx;
+	t_mlx	*libx;
 
 	int		bpp;
 	int		size_line;
 	int		endian;
-	if ((libx = malloc(sizeof(l_list) * 1)) == 0)
+	if ((libx = malloc(sizeof(t_mlx) * 1)) == 0)
 		return (0);
 	libx->mlx_ptr = mlx_init();
 	libx->win_ptr = mlx_new_window(libx->mlx_ptr, WIDTH_ECRAN, HEIGHT_ECRAN, "Cub3D");
@@ -82,13 +83,13 @@ l_list	*set_libx(void)
 	return (libx);
 }
 
-d_list	*set_struct(char *file)
+t_struct	*set_struct(char *file)
 {
-	d_list	*bag;
+	t_struct	*bag;
 
-	if ((bag = malloc(sizeof(d_list) * 1)) == 0)
+	if ((bag = malloc(sizeof(t_struct) * 1)) == 0)
 		return (NULL);
-	bag->map = parsing(file);
+	bag->map = parsing(file, bag);
 	bag->mlx = set_libx();
 	bag->key = set_key_struct();
 	set_player(bag);

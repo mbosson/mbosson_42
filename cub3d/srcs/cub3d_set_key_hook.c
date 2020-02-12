@@ -6,41 +6,41 @@
 /*   By: mbosson <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2020/01/27 13:26:25 by mbosson      #+#   ##    ##    #+#       */
-/*   Updated: 2020/02/05 17:56:02 by mbosson     ###    #+. /#+    ###.fr     */
+/*   Updated: 2020/02/12 18:48:14 by mbosson     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
 
-//cos -> x
-//sin -> y
-
 #include "../cub3d.h"
 
-int	key_hook(d_list *bag)
+int	key_hook(t_struct *bag)
 {
 	float angle;
 	char **map;
+	float static speed = SPEED;
 
-	int i = 0;
-	int j = 0;
 	map = bag->map->map;
 	if (bag->key->esc == 1)
 		exit(1);
 	angle = bag->player->dir;
+	if (bag->key->shift == 1 && speed < SPEED * 3)
+		speed += speed / 20;
+	if (bag->key->shift == 0 && speed > SPEED)
+		speed -= speed / 20;
 	if (bag->key->w == 1)
 	{
-		if (map[(int)bag->player->y / 64][(int)((bag->player->x + cos(bag->player->dir) * SPEED) / 64)] != '1')
-			bag->player->x += cos(bag->player->dir) * SPEED;
-		if (map[(int)((bag->player->y - sin(bag->player->dir) * SPEED) / 64)][(int)bag->player->x / 64] != '1')
-			bag->player->y -= sin(bag->player->dir) * SPEED;
+		if (map[(int)bag->player->y / 64][(int)((bag->player->x + cos(bag->player->dir) * speed) / 64)] != '1')
+			bag->player->x += cos(bag->player->dir) * speed;
+		if (map[(int)((bag->player->y - sin(bag->player->dir) * speed) / 64)][(int)bag->player->x / 64] != '1')
+			bag->player->y -= sin(bag->player->dir) * speed;
 		ray_tracing(bag);
 	}
 	if (bag->key->s == 1)
 	{
-		if (map[(int)(bag->player->y / 64)][(int)((bag->player->x - cos(bag->player->dir) * SPEED) / 64)] != '1')
-			bag->player->x -= cos(bag->player->dir) * SPEED;
-		if (map[(int)(((bag->player->y + sin(bag->player->dir) * SPEED) / 64))][(int)(bag->player->x / 64)] != '1')
-			bag->player->y += sin(bag->player->dir) * SPEED;
+		if (map[(int)(bag->player->y / 64)][(int)((bag->player->x - cos(bag->player->dir) * speed) / 64)] != '1')
+			bag->player->x -= cos(bag->player->dir) * speed;
+		if (map[(int)(((bag->player->y + sin(bag->player->dir) * speed) / 64))][(int)(bag->player->x / 64)] != '1')
+			bag->player->y += sin(bag->player->dir) * speed;
 		ray_tracing(bag);
 	}
 	if (bag->key->d == 1)
@@ -49,10 +49,10 @@ int	key_hook(d_list *bag)
 			angle = (M_PI * 2) + angle - M_PI_2;
 		else
 			angle = angle - M_PI_2;
-		if (map[(int)bag->player->y / 64][(int)((bag->player->x + cos(angle) * SPEED) / 64)] != '1')
-			bag->player->x += cos(angle) * SPEED;
-		if (map[(int)((bag->player->y - sin(angle) * SPEED) / 64)][(int)bag->player->x / 64] != '1')
-			bag->player->y -= sin(angle) * SPEED;
+		if (map[(int)bag->player->y / 64][(int)((bag->player->x + cos(angle) * speed) / 64)] != '1')
+			bag->player->x += cos(angle) * speed;
+		if (map[(int)((bag->player->y - sin(angle) * speed) / 64)][(int)bag->player->x / 64] != '1')
+			bag->player->y -= sin(angle) * speed;
 		ray_tracing(bag);
 	}
 	if (bag->key->a == 1)
@@ -61,10 +61,10 @@ int	key_hook(d_list *bag)
 			angle = (M_PI * 2) + angle - M_PI_2;
 		else
 			angle = angle - M_PI_2;
-		if (map[(int)bag->player->y / 64][(int)((bag->player->x - cos(angle) * SPEED) / 64)] != '1')
-			bag->player->x -= cos(angle) * SPEED;
-		if (map[(int)((bag->player->y + sin(angle) * SPEED) / 64)][(int)bag->player->x / 64] != '1')
-			bag->player->y += sin(angle) * SPEED;
+		if (map[(int)bag->player->y / 64][(int)((bag->player->x - cos(angle) * speed) / 64)] != '1')
+			bag->player->x -= cos(angle) * speed;
+		if (map[(int)((bag->player->y + sin(angle) * speed) / 64)][(int)bag->player->x / 64] != '1')
+			bag->player->y += sin(angle) * speed;
 		ray_tracing(bag);
 	}
 	if (bag->key->right == 1)
@@ -84,7 +84,7 @@ int	key_hook(d_list *bag)
 	return (1);
 }
 
-int	key_press(int key, d_list *bag)
+int	key_press(int key, t_struct *bag)
 {
 	if (key == ESC)
 		bag->key->esc = 1;
@@ -104,10 +104,12 @@ int	key_press(int key, d_list *bag)
 		bag->key->up = 1;
 	if (key == BACK)
 		bag->key->down = 1;
+	if (key == SHIFT)
+		bag->key->shift = 1;
 	return (1);
 }
 
-int	key_unpress(int key, d_list *bag)
+int	key_unpress(int key, t_struct *bag)
 {
 	if (key == W)
 		bag->key->w = 0;	
@@ -125,5 +127,7 @@ int	key_unpress(int key, d_list *bag)
 		bag->key->up = 0;
 	if (key == BACK)
 		bag->key->down = 0;
+	if (key == SHIFT)
+		bag->key->shift = 0;
 	return (1);
 }

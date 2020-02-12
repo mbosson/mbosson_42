@@ -6,17 +6,17 @@
 /*   By: mbosson <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2020/01/21 17:11:09 by mbosson      #+#   ##    ##    #+#       */
-/*   Updated: 2020/02/05 18:28:57 by mbosson     ###    #+. /#+    ###.fr     */
+/*   Updated: 2020/02/12 17:23:48 by mbosson     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
 
 #include "../cub3d.h"
 
-double	find_wall_vertical(t_list *player, m_list *map, r_list raycasting)
+double	find_wall_vertical(t_player *player, t_map *map, t_raycasting raycasting)
 {
-	c_list	Wall;
-	long	result;
+	t_wall	Wall;
+
 	Wall.interY = CUBE_SIZE * tan(raycasting.ray);
 	if ((raycasting.ray > 0 && raycasting.ray < M_PI_2) || (raycasting.ray > (3 * M_PI / 2) && raycasting.ray < 2 * M_PI))
 	{
@@ -46,9 +46,7 @@ double	find_wall_vertical(t_list *player, m_list *map, r_list raycasting)
 		printf("PosY in map : %d\n\n", Wall.lineY);
 	}
 	if (Wall.colX < 0 || Wall.colX > map->tabwidth || Wall.lineY < 0 || Wall.lineY > map->tabheight)
-	{
 		return (LONG_MAX);
-	}
 	while (map->map[Wall.lineY][Wall.colX] != '1')
 	{
 		Wall.x += Wall.interX;
@@ -64,9 +62,7 @@ double	find_wall_vertical(t_list *player, m_list *map, r_list raycasting)
 			printf("PosY in map : %d\n\n", Wall.lineY);
 		}
 		if (Wall.colX < 0 || Wall.colX > map->tabwidth || Wall.lineY < 0 || Wall.lineY > map->tabheight)
-		{
 			return (LONG_MAX);
-		}
 	}
 	if (raycasting.column == 150)
 	{
@@ -75,8 +71,6 @@ double	find_wall_vertical(t_list *player, m_list *map, r_list raycasting)
 		printf("Wall.y : %f\n", Wall.y);
 		printf("PosX in map : %d\n", Wall.colX);
 		printf("PosY in map : %d\n", Wall.lineY);
-		result = sqrt(pow(player->x - Wall.x, 2) + pow(player->y - Wall.y, 2));
-		printf("result : %ld\n\n", result);
 	}
 	return (sqrt(pow(player->x - Wall.x, 2) + pow(player->y - Wall.y, 2)));
 }
@@ -84,16 +78,9 @@ double	find_wall_vertical(t_list *player, m_list *map, r_list raycasting)
 
 
 
-
-
-
-
-
-
-double		find_wall_horizontal(t_list *player, m_list *map, r_list raycasting)
+double		find_wall_horizontal(t_player *player, t_map *map, t_raycasting raycasting)
 {
-	c_list	Wall;
-	double	result;
+	t_wall	Wall;
 
 	if (raycasting.ray < M_PI && raycasting.ray > 0)
 	{
@@ -125,9 +112,7 @@ double		find_wall_horizontal(t_list *player, m_list *map, r_list raycasting)
 		printf("PosY in map : %d\n\n", Wall.lineY);
 	}
 	if (Wall.colX < 0 || Wall.colX > map->tabwidth || Wall.lineY < 0 || Wall.lineY > map->tabheight)
-	{
 			return (LONG_MAX);
-	}
 	while (map->map[Wall.lineY][Wall.colX] != '1')
 	{
 		Wall.x += Wall.interX;
@@ -152,8 +137,6 @@ double		find_wall_horizontal(t_list *player, m_list *map, r_list raycasting)
 		printf("Wall.y : %f\n", Wall.y);
 		printf("PosX in map : %d\n", Wall.colX);
 		printf("PosY in map : %d\n", Wall.lineY);
-		result = sqrt(pow(player->x - Wall.x, 2) + pow(player->y - Wall.y, 2));
-		printf("result : %f\n\n", result);
 	}
 	return (sqrt(pow(player->x - Wall.x, 2) + pow(player->y - Wall.y, 2)));
 }
@@ -166,9 +149,9 @@ double		find_wall_horizontal(t_list *player, m_list *map, r_list raycasting)
 
 
 
-int ray_tracing(d_list *bag)
+int ray_tracing(t_struct *bag)
 {
-	r_list	raycasting;
+	t_raycasting	raycasting;
 
 	raycasting.column = 0;
 	clear_wall(bag->mlx->data);
