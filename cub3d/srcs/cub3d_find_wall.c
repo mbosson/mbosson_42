@@ -6,7 +6,7 @@
 /*   By: mbosson <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2020/01/21 17:11:09 by mbosson      #+#   ##    ##    #+#       */
-/*   Updated: 2020/02/12 17:23:48 by mbosson     ###    #+. /#+    ###.fr     */
+/*   Updated: 2020/02/13 16:15:38 by mbosson     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -16,6 +16,7 @@
 double	find_wall_vertical(t_player *player, t_map *map, t_raycasting raycasting)
 {
 	t_wall	Wall;
+	double result;
 
 	Wall.interY = CUBE_SIZE * tan(raycasting.ray);
 	if ((raycasting.ray > 0 && raycasting.ray < M_PI_2) || (raycasting.ray > (3 * M_PI / 2) && raycasting.ray < 2 * M_PI))
@@ -72,7 +73,10 @@ double	find_wall_vertical(t_player *player, t_map *map, t_raycasting raycasting)
 		printf("PosX in map : %d\n", Wall.colX);
 		printf("PosY in map : %d\n", Wall.lineY);
 	}
-	return (sqrt(pow(player->x - Wall.x, 2) + pow(player->y - Wall.y, 2)));
+	result = sqrt(pow(player->x - Wall.x, 2) + pow(player->y - Wall.y, 2));
+	if (raycasting.long_horizontal < result)
+		raycasting.Wall_x = Wall.x;
+	return (result);
 }
 
 
@@ -138,6 +142,7 @@ double		find_wall_horizontal(t_player *player, t_map *map, t_raycasting raycasti
 		printf("PosX in map : %d\n", Wall.colX);
 		printf("PosY in map : %d\n", Wall.lineY);
 	}
+	raycasting.Wall_x = Wall.x;
 	return (sqrt(pow(player->x - Wall.x, 2) + pow(player->y - Wall.y, 2)));
 }
 
@@ -154,22 +159,22 @@ int ray_tracing(t_struct *bag)
 	t_raycasting	raycasting;
 
 	raycasting.column = 0;
-	clear_wall(bag->mlx->data);
+	clear_wall(bag->mlx->data, bag);
 	raycasting.FOV = FOV_DEG * M_PI / 180;
-	raycasting.dist_to_screen = (WIDTH_ECRAN / 2) / tan(raycasting.FOV / 2);
-	raycasting.middle_of_screen = HEIGHT_ECRAN / 2;
-	raycasting.inter_ray = raycasting.FOV / WIDTH_ECRAN;
+	raycasting.dist_to_screen = (bag->pars->width / 2) / tan(raycasting.FOV / 2);
+	raycasting.middle_of_screen = bag->pars->height / 2;
+	raycasting.inter_ray = raycasting.FOV / bag->pars->width;
 	raycasting.ray = bag->player->dir + raycasting.FOV / 2;
 	if (raycasting.ray > 2 * M_PI)
 		raycasting.ray -= 2 * M_PI;
-	while (raycasting.column < WIDTH_ECRAN)
+	while (raycasting.column < bag->pars->width)
 	{
 		if (raycasting.ray < 0)
 			raycasting.ray += M_PI * 2;
 		raycasting.long_horizontal = find_wall_horizontal(bag->player, bag->map, raycasting);
 		raycasting.long_vertical = find_wall_vertical(bag->player, bag->map, raycasting);
 		raycasting.ray -= raycasting.inter_ray;
-		draw_wall(raycasting, bag->mlx, whose_higher(&raycasting) * cos(raycasting.ray - bag->player->dir));
+		draw_wall(raycasting, bag->mlx, whose_higher(&raycasting) * cos(raycasting.ray - bag->player->dir), bag);
 		raycasting.column++;
 	}
 	mlx_put_image_to_window(bag->mlx->mlx_ptr, bag->mlx->win_ptr, bag->mlx->img_ptr, 0, 0);

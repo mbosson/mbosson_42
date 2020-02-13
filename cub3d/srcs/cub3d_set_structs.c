@@ -6,7 +6,7 @@
 /*   By: mbosson <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2020/01/27 13:07:31 by mbosson      #+#   ##    ##    #+#       */
-/*   Updated: 2020/02/12 22:45:52 by mbosson     ###    #+. /#+    ###.fr     */
+/*   Updated: 2020/02/13 15:40:28 by mbosson     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -46,6 +46,27 @@ int	set_player(t_struct *bag)
 		i++;
 	}
 	return (-1);
+}
+
+void	get_texture_data(t_struct *bag)
+{
+	void	*img_ptr;
+	int size_width;
+	int size_height;
+	int bpp;
+	int endian;
+	int size_line;
+
+	img_ptr = mlx_xpm_file_to_image(bag->mlx->mlx_ptr, bag->pars->path_no, &size_width, &size_height);
+	bag->pars->no = (unsigned int *)mlx_get_data_addr(img_ptr, &bpp, &size_line, &endian);
+	img_ptr = mlx_xpm_file_to_image(bag->mlx->mlx_ptr, bag->pars->path_so, &size_width, &size_height);
+	bag->pars->so = (unsigned int *)mlx_get_data_addr(img_ptr, &bpp, &size_line, &endian);
+	img_ptr = mlx_xpm_file_to_image(bag->mlx->mlx_ptr, bag->pars->path_we, &size_width, &size_height);
+	bag->pars->we = (unsigned int *)mlx_get_data_addr(img_ptr, &bpp, &size_line, &endian);
+	img_ptr = mlx_xpm_file_to_image(bag->mlx->mlx_ptr, bag->pars->path_ea, &size_width, &size_height);
+	bag->pars->ea = (unsigned int *)mlx_get_data_addr(img_ptr, &bpp, &size_line, &endian);
+	img_ptr = mlx_xpm_file_to_image(bag->mlx->mlx_ptr, bag->pars->path_s, &size_width, &size_height);
+	bag->pars->s = (unsigned int *)mlx_get_data_addr(bag->mlx->img_ptr, &bpp, &size_line, &endian);
 }
 
 t_key	*set_key_struct(void)
@@ -93,5 +114,6 @@ t_struct	*set_struct(char *file)
 	bag->mlx = set_libx();
 	bag->key = set_key_struct();
 	set_player(bag);
+	get_texture_data(bag);
 	return (bag);
 }

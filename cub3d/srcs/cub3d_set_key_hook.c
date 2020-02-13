@@ -6,7 +6,7 @@
 /*   By: mbosson <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2020/01/27 13:26:25 by mbosson      #+#   ##    ##    #+#       */
-/*   Updated: 2020/02/12 18:48:14 by mbosson     ###    #+. /#+    ###.fr     */
+/*   Updated: 2020/02/13 12:50:52 by mbosson     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -18,8 +18,12 @@ int	key_hook(t_struct *bag)
 	float angle;
 	char **map;
 	float static speed = SPEED;
+	int colX;
+	int lineY;
 
 	map = bag->map->map;
+	colX = (int)(bag->player->x / 64);
+	lineY = (int)(bag->player->y / 64);
 	if (bag->key->esc == 1)
 		exit(1);
 	angle = bag->player->dir;
@@ -29,17 +33,17 @@ int	key_hook(t_struct *bag)
 		speed -= speed / 20;
 	if (bag->key->w == 1)
 	{
-		if (map[(int)bag->player->y / 64][(int)((bag->player->x + cos(bag->player->dir) * speed) / 64)] != '1')
+		if (map[lineY][(int)((bag->player->x + cos(bag->player->dir) * speed) / 64)] != '1')
 			bag->player->x += cos(bag->player->dir) * speed;
-		if (map[(int)((bag->player->y - sin(bag->player->dir) * speed) / 64)][(int)bag->player->x / 64] != '1')
+		if (map[(int)((bag->player->y - sin(bag->player->dir) * speed) / 64)][colX] != '1')
 			bag->player->y -= sin(bag->player->dir) * speed;
 		ray_tracing(bag);
 	}
-	if (bag->key->s == 1)
+	else if (bag->key->s == 1)
 	{
-		if (map[(int)(bag->player->y / 64)][(int)((bag->player->x - cos(bag->player->dir) * speed) / 64)] != '1')
+		if (map[lineY][(int)((bag->player->x - cos(bag->player->dir) * speed) / 64)] != '1')
 			bag->player->x -= cos(bag->player->dir) * speed;
-		if (map[(int)(((bag->player->y + sin(bag->player->dir) * speed) / 64))][(int)(bag->player->x / 64)] != '1')
+		if (map[(int)(((bag->player->y + sin(bag->player->dir) * speed) / 64))][colX] != '1')
 			bag->player->y += sin(bag->player->dir) * speed;
 		ray_tracing(bag);
 	}
@@ -49,9 +53,9 @@ int	key_hook(t_struct *bag)
 			angle = (M_PI * 2) + angle - M_PI_2;
 		else
 			angle = angle - M_PI_2;
-		if (map[(int)bag->player->y / 64][(int)((bag->player->x + cos(angle) * speed) / 64)] != '1')
+		if (map[lineY][(int)((bag->player->x + cos(angle) * speed) / 64)] != '1')
 			bag->player->x += cos(angle) * speed;
-		if (map[(int)((bag->player->y - sin(angle) * speed) / 64)][(int)bag->player->x / 64] != '1')
+		if (map[(int)((bag->player->y - sin(angle) * speed) / 64)][colX] != '1')
 			bag->player->y -= sin(angle) * speed;
 		ray_tracing(bag);
 	}
@@ -61,9 +65,9 @@ int	key_hook(t_struct *bag)
 			angle = (M_PI * 2) + angle - M_PI_2;
 		else
 			angle = angle - M_PI_2;
-		if (map[(int)bag->player->y / 64][(int)((bag->player->x - cos(angle) * speed) / 64)] != '1')
+		if (map[lineY][(int)((bag->player->x - cos(angle) * speed) / 64)] != '1')
 			bag->player->x -= cos(angle) * speed;
-		if (map[(int)((bag->player->y + sin(angle) * speed) / 64)][(int)bag->player->x / 64] != '1')
+		if (map[(int)((bag->player->y + sin(angle) * speed) / 64)][colX] != '1')
 			bag->player->y += sin(angle) * speed;
 		ray_tracing(bag);
 	}

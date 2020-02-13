@@ -6,7 +6,7 @@
 /*   By: mbosson <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2020/01/15 14:54:21 by mbosson      #+#   ##    ##    #+#       */
-/*   Updated: 2020/02/12 22:46:13 by mbosson     ###    #+. /#+    ###.fr     */
+/*   Updated: 2020/02/13 16:08:56 by mbosson     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -14,8 +14,8 @@
 #ifndef CUB3D_H
 # define CUB3D_H
 # define FOV_DEG		55
-# define WIDTH_ECRAN	1920
-# define HEIGHT_ECRAN	1080
+# define WIDTH_ECRAN	1000
+# define HEIGHT_ECRAN	800
 # define CUBE_SIZE		64
 # define ESC			53
 # define W				13
@@ -47,6 +47,8 @@ typedef	struct	s_player				//PLAYER
 {
 	double				x;
 	double				y;
+	int					colX;
+	int					lineY;
 	float				dir;
 }				t_player;
 
@@ -78,9 +80,12 @@ typedef	struct	s_raycasting				//VALEUR RAYTRACING
 	float					last_ray;
 	double					dist_to_screen;
 	int						middle_of_screen;
+	float					bitmap_ratio;
 	int						column;
 	int						last_wall;
 	unsigned int			color;
+	double					Wall_x;
+	double					Wall_y;
 }				t_raycasting;
 
 typedef struct	s_key
@@ -100,14 +105,20 @@ typedef struct	s_key
 typedef struct s_pars
 {
 	char			*path_no;
+	unsigned int		*no;
 	char			*path_so;
+	unsigned int		*so;
 	char			*path_we;
+	unsigned int		*we;
 	char			*path_ea;
+	unsigned int		*ea;
 	char			*path_s;
+	unsigned int		*s;
 	unsigned int	color_floor;
 	unsigned int	color_celling;
 	int				width;
 	int				height;
+	double			texture_size;
 }				t_pars;
 
 typedef struct	s_struct
@@ -119,7 +130,7 @@ typedef struct	s_struct
 	t_pars			*pars;
 }				t_struct;
 
-void			clear_wall(unsigned int *data);
+void			clear_wall(unsigned int *data, t_struct *bag);
 char			*ft_strdup(char *s1);
 char			*ft_itoa(int n);
 t_map			*parsing(char *file, t_struct *bag);
@@ -138,6 +149,6 @@ double			find_wall_vertical(t_player *player, t_map *map, t_raycasting raycastin
 double			whose_higher(t_raycasting *raycasting);
 t_mlx			*set_libx(void);
 t_struct		*set_struct(char *file);
-void			draw_wall(t_raycasting raycasting, t_mlx *mlx, double dist_to_wall);
+void			draw_wall(t_raycasting raycasting, t_mlx *mlx, double dist_to_wall, t_struct *bag);
 
 #endif
