@@ -75,7 +75,7 @@ double	find_wall_vertical(t_player *player, t_map *map, t_raycasting raycasting)
 	}
 	result = sqrt(pow(player->x - Wall.x, 2) + pow(player->y - Wall.y, 2));
 	if (raycasting.long_horizontal < result)
-		raycasting.Wall_x = Wall.x;
+		map->Wall_x = Wall.x;
 	return (result);
 }
 
@@ -142,7 +142,7 @@ double		find_wall_horizontal(t_player *player, t_map *map, t_raycasting raycasti
 		printf("PosX in map : %d\n", Wall.colX);
 		printf("PosY in map : %d\n", Wall.lineY);
 	}
-	raycasting.Wall_x = Wall.x;
+	map->Wall_x = Wall.x;
 	return (sqrt(pow(player->x - Wall.x, 2) + pow(player->y - Wall.y, 2)));
 }
 

@@ -34,7 +34,7 @@ void	draw_wall(t_raycasting raycasting, t_mlx *mlx, double dist_to_wall, t_struc
 
 	i = 0;
 	pixel = (raycasting.middle_of_screen * bag->pars->width) + raycasting.column;
-	bitmap_pixel = 64 * 32 + (int)raycasting.Wall_x % 64;
+	bitmap_pixel = 64 * 32 + (int)bag->map->Wall_x % 64;
 	height_of_wall = (CUBE_SIZE / dist_to_wall) * raycasting.dist_to_screen;
 	raycasting.bitmap_ratio = 64 / height_of_wall;
 	if (height_of_wall > bag->pars->height)
@@ -56,7 +56,7 @@ void	draw_wall(t_raycasting raycasting, t_mlx *mlx, double dist_to_wall, t_struc
 		i++;
 	}
 	pixel = raycasting.middle_of_screen * bag->pars->width + raycasting.column;
-	bitmap_pixel = 64 * 32 + (int)raycasting.Wall_x % 64;
+	bitmap_pixel = 64 * 32 + (int)bag->map->Wall_x % 64;
 	while (i >= 0)
 	{
 		mlx->data[pixel] = bag->pars->ea[(int)bitmap_pixel];

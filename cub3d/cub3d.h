@@ -41,6 +41,8 @@ typedef struct	s_map				//MAP
 	int			tabheight; // ^
 	int			tabwidth;  // >
 	char		**map;
+	double			Wall_x;
+	double			Wall_y;
 }				t_map;
 
 typedef	struct	s_player				//PLAYER
@@ -84,8 +86,7 @@ typedef	struct	s_raycasting				//VALEUR RAYTRACING
 	int						column;
 	int						last_wall;
 	unsigned int			color;
-	double					Wall_x;
-	double					Wall_y;
+
 }				t_raycasting;
 
 typedef struct	s_key

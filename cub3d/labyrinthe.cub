@@ -3,7 +3,7 @@ R   1000 800
 NO  block/diamond_block.XPM
 SO  block/andesite.XPM
 WE  block/bedrock.XPM
-EA  block/black_glazed_terracotta.XPM
+EA  block/bedrock.XPM
 S   block/cornflower.XPM
 
 F   220,100,0
