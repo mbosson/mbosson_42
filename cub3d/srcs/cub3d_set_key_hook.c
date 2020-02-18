@@ -6,7 +6,7 @@
 /*   By: mbosson <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2020/01/27 13:26:25 by mbosson      #+#   ##    ##    #+#       */
-/*   Updated: 2020/02/13 12:50:52 by mbosson     ###    #+. /#+    ###.fr     */
+/*   Updated: 2020/02/18 17:05:37 by mbosson          ###   ########lyon.fr   */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -17,7 +17,7 @@ int	key_hook(t_struct *bag)
 {
 	float angle;
 	char **map;
-	float static speed = SPEED;
+	static float speed = SPEED;
 	int colX;
 	int lineY;
 

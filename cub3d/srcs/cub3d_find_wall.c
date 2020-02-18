@@ -6,7 +6,7 @@
 /*   By: mbosson <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2020/01/21 17:11:09 by mbosson      #+#   ##    ##    #+#       */
-/*   Updated: 2020/02/13 16:15:38 by mbosson     ###    #+. /#+    ###.fr     */
+/*   Updated: 2020/02/18 14:51:11 by mbosson          ###   ########lyon.fr   */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -74,8 +74,11 @@ double	find_wall_vertical(t_player *player, t_map *map, t_raycasting raycasting)
 		printf("PosY in map : %d\n", Wall.lineY);
 	}
 	result = sqrt(pow(player->x - Wall.x, 2) + pow(player->y - Wall.y, 2));
-	if (raycasting.long_horizontal < result)
-		map->Wall_x = Wall.x;
+	if (raycasting.long_horizontal > result)
+	{
+		map->Wall_x = Wall.y;
+		map->ori_wall = 1;
+	}
 	return (result);
 }
 
@@ -143,6 +146,7 @@ double		find_wall_horizontal(t_player *player, t_map *map, t_raycasting raycasti
 		printf("PosY in map : %d\n", Wall.lineY);
 	}
 	map->Wall_x = Wall.x;
+	map->ori_wall = 0;
 	return (sqrt(pow(player->x - Wall.x, 2) + pow(player->y - Wall.y, 2)));
 }
 

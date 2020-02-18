@@ -6,16 +6,14 @@
 /*   By: mbosson <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2020/01/15 14:54:21 by mbosson      #+#   ##    ##    #+#       */
-/*   Updated: 2020/02/13 16:08:56 by mbosson     ###    #+. /#+    ###.fr     */
+/*   Updated: 2020/02/18 17:02:28 by mbosson          ###   ########lyon.fr   */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
 
 #ifndef CUB3D_H
 # define CUB3D_H
-# define FOV_DEG		55
-# define WIDTH_ECRAN	1000
-# define HEIGHT_ECRAN	800
+# define FOV_DEG		60
 # define CUBE_SIZE		64
 # define ESC			53
 # define W				13
@@ -43,6 +41,7 @@ typedef struct	s_map				//MAP
 	char		**map;
 	double			Wall_x;
 	double			Wall_y;
+	int				ori_wall;
 }				t_map;
 
 typedef	struct	s_player				//PLAYER
@@ -115,6 +114,7 @@ typedef struct s_pars
 	unsigned int		*ea;
 	char			*path_s;
 	unsigned int		*s;
+	unsigned int		*texture;
 	unsigned int	color_floor;
 	unsigned int	color_celling;
 	int				width;
@@ -148,7 +148,7 @@ int				key_unpress(int key, t_struct *bag);
 double			find_wall_horizontal(t_player *player, t_map *map, t_raycasting raycasting);
 double			find_wall_vertical(t_player *player, t_map *map, t_raycasting raycasting);
 double			whose_higher(t_raycasting *raycasting);
-t_mlx			*set_libx(void);
+t_mlx			*set_libx(t_struct *bag);
 t_struct		*set_struct(char *file);
 void			draw_wall(t_raycasting raycasting, t_mlx *mlx, double dist_to_wall, t_struct *bag);
 

@@ -6,7 +6,7 @@
 /*   By: mbosson <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2020/01/27 13:07:31 by mbosson      #+#   ##    ##    #+#       */
-/*   Updated: 2020/02/13 15:40:28 by mbosson     ###    #+. /#+    ###.fr     */
+/*   Updated: 2020/02/18 15:02:57 by mbosson          ###   ########lyon.fr   */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -88,7 +88,7 @@ t_key	*set_key_struct(void)
 	return (key);
 }
 
-t_mlx	*set_libx(void)
+t_mlx	*set_libx(t_struct *bag)
 {
 	t_mlx	*libx;
 
@@ -98,8 +98,8 @@ t_mlx	*set_libx(void)
 	if ((libx = malloc(sizeof(t_mlx) * 1)) == 0)
 		return (0);
 	libx->mlx_ptr = mlx_init();
-	libx->win_ptr = mlx_new_window(libx->mlx_ptr, WIDTH_ECRAN, HEIGHT_ECRAN, "Cub3D");
-	libx->img_ptr = mlx_new_image(libx->mlx_ptr, WIDTH_ECRAN, HEIGHT_ECRAN);
+	libx->win_ptr = mlx_new_window(libx->mlx_ptr, bag->pars->width, bag->pars->height, "Cub3D");
+	libx->img_ptr = mlx_new_image(libx->mlx_ptr, bag->pars->width, bag->pars->height);
 	libx->data = (unsigned int *)mlx_get_data_addr(libx->img_ptr, &bpp, &size_line, &endian);
 	return (libx);
 }
@@ -111,7 +111,7 @@ t_struct	*set_struct(char *file)
 	if ((bag = malloc(sizeof(t_struct) * 1)) == 0)
 		return (NULL);
 	bag->map = parsing(file, bag);
-	bag->mlx = set_libx();
+	bag->mlx = set_libx(bag);
 	bag->key = set_key_struct();
 	set_player(bag);
 	get_texture_data(bag);
