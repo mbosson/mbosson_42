@@ -6,7 +6,7 @@
 /*   By: mbosson <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2020/01/27 13:07:31 by mbosson      #+#   ##    ##    #+#       */
-/*   Updated: 2020/02/18 15:02:57 by mbosson          ###   ########lyon.fr   */
+/*   Updated: 2020/02/27 16:57:15 by mbosson          ###   ########lyon.fr   */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -22,6 +22,7 @@ int	set_player(t_struct *bag)
 	j = 0;
 	if ((bag->player = malloc(sizeof(t_player) * 1)) == 0)
 		return (0); // free
+	bag->player->middle_of_screen = bag->pars->height / 2;
 	while (bag->map->map[i] != 0)
 	{
 		j = 0;
@@ -51,21 +52,19 @@ int	set_player(t_struct *bag)
 void	get_texture_data(t_struct *bag)
 {
 	void	*img_ptr;
-	int size_width;
-	int size_height;
 	int bpp;
 	int endian;
 	int size_line;
 
-	img_ptr = mlx_xpm_file_to_image(bag->mlx->mlx_ptr, bag->pars->path_no, &size_width, &size_height);
+	img_ptr = mlx_xpm_file_to_image(bag->mlx->mlx_ptr, bag->pars->path_no, &bag->pars->width_no, &bag->pars->height_no);
 	bag->pars->no = (unsigned int *)mlx_get_data_addr(img_ptr, &bpp, &size_line, &endian);
-	img_ptr = mlx_xpm_file_to_image(bag->mlx->mlx_ptr, bag->pars->path_so, &size_width, &size_height);
+	img_ptr = mlx_xpm_file_to_image(bag->mlx->mlx_ptr, bag->pars->path_so, &bag->pars->width_so, &bag->pars->height_so);
 	bag->pars->so = (unsigned int *)mlx_get_data_addr(img_ptr, &bpp, &size_line, &endian);
-	img_ptr = mlx_xpm_file_to_image(bag->mlx->mlx_ptr, bag->pars->path_we, &size_width, &size_height);
+	img_ptr = mlx_xpm_file_to_image(bag->mlx->mlx_ptr, bag->pars->path_we, &bag->pars->width_we, &bag->pars->height_we);
 	bag->pars->we = (unsigned int *)mlx_get_data_addr(img_ptr, &bpp, &size_line, &endian);
-	img_ptr = mlx_xpm_file_to_image(bag->mlx->mlx_ptr, bag->pars->path_ea, &size_width, &size_height);
+	img_ptr = mlx_xpm_file_to_image(bag->mlx->mlx_ptr, bag->pars->path_ea, &bag->pars->width_ea, &bag->pars->height_ea);
 	bag->pars->ea = (unsigned int *)mlx_get_data_addr(img_ptr, &bpp, &size_line, &endian);
-	img_ptr = mlx_xpm_file_to_image(bag->mlx->mlx_ptr, bag->pars->path_s, &size_width, &size_height);
+	img_ptr = mlx_xpm_file_to_image(bag->mlx->mlx_ptr, bag->pars->path_s, &bag->pars->width_s, &bag->pars->height_s);
 	bag->pars->s = (unsigned int *)mlx_get_data_addr(bag->mlx->img_ptr, &bpp, &size_line, &endian);
 }
 
@@ -115,5 +114,6 @@ t_struct	*set_struct(char *file)
 	bag->key = set_key_struct();
 	set_player(bag);
 	get_texture_data(bag);
+	bag->fov_deg = FOV_DEG;
 	return (bag);
 }

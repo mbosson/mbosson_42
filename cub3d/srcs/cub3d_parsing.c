@@ -6,7 +6,7 @@
 /*   By: mbosson <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/12/20 11:44:26 by mbosson      #+#   ##    ##    #+#       */
-/*   Updated: 2020/02/13 13:59:17 by mbosson     ###    #+. /#+    ###.fr     */
+/*   Updated: 2020/02/27 15:51:44 by mbosson          ###   ########lyon.fr   */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -133,6 +133,7 @@ t_map	*parsing(char *file, t_struct *bag)
 	map->map = line;
 	map->tabwidth = ft_strlen(map->map[0]) - 1;
 	map->tabheight = tablen(map->map) - 2;
+	bag->pars->color_psy = 0;
 	printf("parsing width screen : %d\n", bag->pars->width);
 	printf("parsing height screen : %d\n", bag->pars->height);
 	return (map);

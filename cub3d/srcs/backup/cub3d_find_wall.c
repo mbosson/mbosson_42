@@ -6,7 +6,7 @@
 /*   By: mbosson <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2020/01/21 17:11:09 by mbosson      #+#   ##    ##    #+#       */
-/*   Updated: 2020/02/27 16:58:09 by mbosson          ###   ########lyon.fr   */
+/*   Updated: 2020/02/27 16:44:39 by mbosson          ###   ########lyon.fr   */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -164,7 +164,7 @@ int ray_tracing(t_struct *bag)
 
 	raycasting.column = 0;
 	clear_wall(bag->mlx->data, bag);
-	raycasting.FOV = bag->fov_deg * M_PI / 180;
+	raycasting.FOV = FOV_DEG * M_PI / 180;
 	raycasting.dist_to_screen = (bag->pars->width / 2) / tan(raycasting.FOV / 2);
 	raycasting.inter_ray = raycasting.FOV / bag->pars->width;
 	raycasting.ray = bag->player->dir + raycasting.FOV / 2;
@@ -183,6 +183,6 @@ int ray_tracing(t_struct *bag)
 	mlx_put_image_to_window(bag->mlx->mlx_ptr, bag->mlx->win_ptr, bag->mlx->img_ptr, 0, 0);
 	mlx_string_put(bag->mlx->mlx_ptr, bag->mlx->win_ptr, 10, 10, 0x6464FF, ft_strjoin("x : ", ft_itoa(bag->player->x / 64)));
 	mlx_string_put(bag->mlx->mlx_ptr, bag->mlx->win_ptr, 10, 20, 0x6464FF, ft_strjoin("y : ", ft_itoa(bag->player->y / 64)));
-	mlx_string_put(bag->mlx->mlx_ptr, bag->mlx->win_ptr, 10, 30, 0x6464FF, ft_strjoin("Middle of screen : ", ft_itoa(bag->player->middle_of_screen)));
+	mlx_string_put(bag->mlx->mlx_ptr, bag->mlx->win_ptr, 10, 30, 0x6464FF, ft_strjoin("middle of screen : ", ft_itoa(bag->player->middle_of_screen)));
 	return (1);
 }

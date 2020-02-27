@@ -6,12 +6,22 @@
 /*   By: mbosson <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2020/02/12 22:30:01 by mbosson      #+#   ##    ##    #+#       */
-/*   Updated: 2020/02/13 12:59:27 by mbosson     ###    #+. /#+    ###.fr     */
+/*   Updated: 2020/02/27 15:49:28 by mbosson          ###   ########lyon.fr   */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
 
 #include "../cub3d.h"
+
+unsigned int random_hexa(void)
+{
+  unsigned int   nb;
+
+  nb = 0;
+  srand(time(0) * getpid());
+  nb = rand() % 1000000;
+  return (nb);
+}
 
 int	ft_is_num(char c)
 {
