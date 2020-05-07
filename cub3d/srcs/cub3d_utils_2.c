@@ -13,6 +13,23 @@
 
 #include "../cub3d.h"
 
+void	remind_sprite(t_struct *bag, t_remindsprite *reminder, int column, double longeur, double Wall_x)
+{
+	t_remindsprite *actual;
+	t_remindsprite *new;
+
+	actual = reminder;
+	while (actual->next != 0)
+		actual = actual->next;
+	actual->column = column;
+	actual->longeur = longeur;
+	actual->Wall_x = Wall_x;
+	if ((new = malloc(sizeof(t_remindsprite) * 1)) == 0)
+		exit(1);
+	new->next = 0;
+	actual->next = new;
+}
+
 unsigned int random_hexa(void)
 {
   unsigned int   nb;

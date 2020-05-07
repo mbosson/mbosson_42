@@ -1,0 +1,19 @@
+R   1200 1000
+
+NO  block/brain_coral_block.XPM
+SO  block/diamond_block.XPM
+WE  block/bedrock.XPM
+EA  block/black_glazed_terracotta.XPM
+S   block/cornflower.XPM
+
+F   220,100,0
+C   225,30,0
+
+111111111
+100000001
+100000001
+1000S0001
+100000001
+100020001
+100000001
+111111111

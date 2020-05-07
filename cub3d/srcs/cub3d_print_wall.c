@@ -74,11 +74,11 @@ void	draw_wall(t_raycasting raycasting, t_mlx *mlx, double dist_to_wall, t_struc
 	height_of_wall_2 = height_of_wall / 2;
 	if (raycasting.column == 150)
 	{
-		printf("bitmap_ratio : %f\n", raycasting.bitmap_ratio);
-		printf("\n\ndistance_to_wall : %f\n", dist_to_wall);
-		printf("distance_to_screen : %f\n", raycasting.dist_to_screen);
-		printf("height_of_wall : %f\n", height_of_wall);
-		printf("ray : %f\n", raycasting.ray);
+	//	printf("bitmap_ratio : %f\n", raycasting.bitmap_ratio);
+	//	printf("\n\ndistance_to_wall : %f\n", dist_to_wall);
+	//	printf("distance_to_screen : %f\n", raycasting.dist_to_screen);
+	//	printf("height_of_wall : %f\n", height_of_wall);
+	//	printf("ray : %f\n", raycasting.ray);
 	}
 	while (i <= height_of_wall_2)
 	{
@@ -103,8 +103,7 @@ void	draw_wall(t_raycasting raycasting, t_mlx *mlx, double dist_to_wall, t_struc
 	{
 		if (pixel < 0)
 			break;
-		if (pixel > 0)
-			mlx->data[pixel] = bag->pars->texture[(int)bitmap_pixel] + bag->pars->color_psy;
+		mlx->data[pixel] = bag->pars->texture[(int)bitmap_pixel] + bag->pars->color_psy;
 		pixel -= bag->pars->width;
 		buffer += raycasting.bitmap_ratio;
 		while (buffer >= 1)
@@ -114,5 +113,73 @@ void	draw_wall(t_raycasting raycasting, t_mlx *mlx, double dist_to_wall, t_struc
 			buffer -= 1;
 		}
 		i--;
+	}
+}
+
+void	draw_texture(t_mlx *mlx, t_raycasting raycasting, t_struct *bag, t_remindsprite *reminder)
+{
+	double	height_of_wall;
+	double	height_of_wall_2;
+	long	i;
+	int	pixel;
+	float	bitmap_pixel;
+	float	buffer;
+	int	limit;
+	int	limit_texture;
+
+	i = 0;
+	buffer = 0;
+	bag->pars->texture = bag->pars->s;
+	bag->pars->texture_width = bag->pars->width_s;
+	bag->pars->texture_height = bag->pars->height_s;
+	pixel = (bag->player->middle_of_screen * bag->pars->width) + reminder->column;
+	bitmap_pixel = bag->pars->texture_width * bag->pars->texture_height / 2 + (int)reminder->Wall_x % 64;
+	height_of_wall = (CUBE_SIZE / reminder->longeur) * raycasting.dist_to_screen;
+	height_of_wall_2 = height_of_wall / 2;
+	raycasting.bitmap_ratio = bag->pars->texture_width / height_of_wall;
+	limit = bag->pars->width * bag->pars->height;
+	limit_texture = bag->pars->texture_width * bag->pars->texture_height;
+	while (i <= height_of_wall_2)
+	{
+		if (pixel > limit * 2)
+			break;
+		if (pixel < limit)
+			mlx->data[pixel] = bag->pars->texture[(int)bitmap_pixel] + bag->pars->color_psy;
+		pixel += bag->pars->width;
+		buffer += raycasting.bitmap_ratio;
+		while (buffer >= 1)
+		{
+			if (bitmap_pixel + bag->pars->texture_width < bag->pars->texture_width * bag->pars->texture_height)
+				bitmap_pixel += bag->pars->texture_width;
+			buffer -= 1;
+		}
+		i++;
+	}
+	pixel = bag->player->middle_of_screen * bag->pars->width + reminder->column;
+	bitmap_pixel = bag->pars->texture_width * bag->pars->texture_height / 2 + (int)reminder->Wall_x % 64;
+	buffer = 0;
+	while (i >= 0)
+	{
+		if (pixel < 0)
+			break;
+		mlx->data[pixel] = bag->pars->texture[(int)bitmap_pixel] + bag->pars->color_psy;
+		pixel -= bag->pars->width;
+		buffer += raycasting.bitmap_ratio;
+		while (buffer >= 1)
+		{
+			if (bitmap_pixel - bag->pars->texture_width > 0)
+				bitmap_pixel -= bag->pars->texture_width;
+			buffer -= 1;
+		}
+		i--;
+	}
+}
+
+void print_sprite(t_struct *bag, t_raycasting raycasting)
+{
+	while (bag->reminder->next != NULL)
+	{
+		draw_texture(bag->mlx, raycasting, bag, bag->reminder);
+		bag->reminder = bag->reminder->next;
 	}
 }

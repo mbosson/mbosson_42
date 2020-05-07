@@ -109,6 +109,9 @@ t_struct	*set_struct(char *file)
 
 	if ((bag = malloc(sizeof(t_struct) * 1)) == 0)
 		return (NULL);
+	if ((bag->reminder = malloc(sizeof(t_remindsprite) * 1)) == 0)
+		return (NULL);
+	bag->reminder->next = 0;
 	bag->map = parsing(file, bag);
 	bag->mlx = set_libx(bag);
 	bag->key = set_key_struct();

@@ -37,6 +37,14 @@
 # include <math.h>
 # include <time.h>
 
+typedef struct	s_remindsprite
+{
+	int			column;
+	double			longeur;
+	double			Wall_x;
+	void			*next;
+}				t_remindsprite;
+
 typedef struct	s_map				//MAP
 {
 	int			tabheight; // ^
@@ -147,10 +155,13 @@ typedef struct	s_struct
 	t_mlx			*mlx;
 	t_key			*key;
 	t_pars			*pars;
+	t_remindsprite		*reminder;
 	int				fov_deg;
 }				t_struct;
 
 void			clear_wall(unsigned int *data, t_struct *bag);
+void			remind_sprite(t_struct *bag, t_remindsprite *reminder, int column, double longeur, double Wall_x);
+void			print_sprite(t_struct *bag, t_raycasting raycasting);
 char			*ft_strdup(char *s1);
 char			*ft_itoa(int n);
 t_map			*parsing(char *file, t_struct *bag);
@@ -165,8 +176,8 @@ int				key_hook(t_struct *bag);
 int				key_press(int key, t_struct *bag);
 int				key_unpress(int key, t_struct *bag);
 unsigned int	random_hexa(void);
-double			find_wall_horizontal(t_player *player, t_map *map, t_raycasting raycasting);
-double			find_wall_vertical(t_player *player, t_map *map, t_raycasting raycasting);
+double			find_wall_horizontal(t_player *player, t_map *map, t_raycasting raycasting, t_struct *bag);
+double			find_wall_vertical(t_player *player, t_map *map, t_raycasting raycasting, t_struct *bag);
 double			whose_higher(t_raycasting *raycasting);
 t_mlx			*set_libx(t_struct *bag);
 t_struct		*set_struct(char *file);
